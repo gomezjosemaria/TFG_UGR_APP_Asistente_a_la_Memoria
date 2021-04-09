@@ -22,13 +22,6 @@ class LoginPasswordInputChanged extends LoginEvent {
   List<Object> get props => [passwordInput];
 }
 
-class LoginPasswordVisibilityPressed extends LoginEvent {
-  const LoginPasswordVisibilityPressed();
-
-  @override
-  List<Object> get props => [];
-}
-
 class LoginSubmitted extends LoginEvent {
   const LoginSubmitted();
 
