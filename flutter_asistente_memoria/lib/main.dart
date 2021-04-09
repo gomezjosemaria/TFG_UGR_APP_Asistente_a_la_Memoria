@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_asistente_memoria/screens/choose_login/choose_login.dart';
+import 'package:flutter_asistente_memoria/screens/login/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Asistente Memoria',
       theme: ThemeData(),
-      home: ChooseLogin(),
+      home: Login(),
     );
   }
 }
