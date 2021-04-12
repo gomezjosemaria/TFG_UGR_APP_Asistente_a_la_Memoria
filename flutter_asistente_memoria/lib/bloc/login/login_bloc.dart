@@ -22,6 +22,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     else if (event is LoginPasswordInputChanged) {
       yield _mapLoginPasswordInputChangedToState(event, state);
     }
+    else if (event is LoginSubmitted) {
+      yield* _mapLoginSubmittedToState(event, state);
+    }
   }
 
   LoginState _mapLoginEmailInputChangedToState(LoginEmailInputChanged event, LoginState state) {
@@ -38,6 +41,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       passwordInput: passwordInput,
       formzStatus: Formz.validate([passwordInput, state.emailInput]),
     );
+  }
+
+  Stream<LoginState> _mapLoginSubmittedToState(
+    LoginSubmitted event,
+    LoginState state,
+  ) async* {
+    final FormzStatus formzStatus = Formz.validate([state.passwordInput, state.emailInput]);
+    if (formzStatus.isValidated) {
+      yield state.copyWith(formzStatus: FormzStatus.submissionInProgress);
+      await Future.delayed(const Duration(seconds: 2), (){});
+      yield state.copyWith(formzStatus: FormzStatus.submissionFailure);
+    }
+    else {
+      yield state.copyWith(
+        formzStatus: FormzStatus.invalid,
+        emailInput: state.emailInput,
+        passwordInput: state.passwordInput,
+      );
+    }
   }
 
 }

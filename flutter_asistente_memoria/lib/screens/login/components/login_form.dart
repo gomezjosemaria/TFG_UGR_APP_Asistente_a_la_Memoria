@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/login/login_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class _EmailInput extends StatelessWidget {
           height: 10,
         ),
         BlocBuilder<LoginBloc, LoginState> (
-          buildWhen: (previous, current) => previous.emailInput != current.emailInput,
+          buildWhen: (previous, current) => previous.emailInput != current.emailInput || current.formzStatus.isInvalid,
           builder: (context, state) {
             return TextField(
               key: const Key('loginForm_emailInput_textField'),
@@ -50,7 +51,7 @@ class _EmailInput extends StatelessWidget {
                   Icons.email,
                 ),
                 hintText: "Introduce tu Email",
-                errorText: state.emailInput.invalid ? "Email no válido" : null,
+                errorText: state.emailInput.invalid || state.formzStatus.isInvalid && state.emailInput.pure ? "Email no válido" : null,
               ),
             );
           },
@@ -90,7 +91,7 @@ class _PasswordInputState extends State<_PasswordInput>{
           height: 10,
         ),
         BlocBuilder<LoginBloc, LoginState> (
-          buildWhen: (previous, current) => previous.passwordInput != current.passwordInput,
+          buildWhen: (previous, current) => previous.passwordInput != current.passwordInput || current.formzStatus.isInvalid,
           builder: (context, state) {
             return TextField(
               key: const Key('loginForm_passwordInput_textField'),
@@ -108,7 +109,7 @@ class _PasswordInputState extends State<_PasswordInput>{
                   onPressed: _toggleVisibility,
                 ),
                 hintText: "Introduce tu Contraseña",
-                errorText: state.passwordInput.invalid ? "Contraseña no válida" : null,
+                errorText: state.passwordInput.invalid || state.formzStatus.isInvalid && state.passwordInput.pure ? "Contraseña no válida" : null,
               ),
             );
           },
@@ -122,16 +123,23 @@ class _LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: double.infinity,
-        height: 60.0,
-        child: ElevatedButton(
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.formzStatus != current.formzStatus,
+      builder: (context, state) {
+        return SizedBox(
+          width: double.infinity,
+          height: 60.0,
+          child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                shape: StadiumBorder()
+              shape: StadiumBorder(),
             ),
-            onPressed: null,
-            child: Text("Iniciar Sesión")
-        )
+            onPressed: state.formzStatus.isSubmissionInProgress ? null : () {
+              context.read<LoginBloc>().add(const LoginSubmitted());
+            },
+            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Iniciar Sesión"),
+          ),
+        );
+      },
     );
   }
 }
