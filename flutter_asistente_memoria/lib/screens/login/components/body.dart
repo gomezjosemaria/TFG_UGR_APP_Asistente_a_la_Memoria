@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/screens/login/components/login_form.dart';
+import 'package:flutter_asistente_memoria/screens/login/components/registrer_button.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -7,7 +8,13 @@ class Body extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: SafeArea(
-        child: LoginForm(),
+        child: Column(
+          children: [
+            LoginForm(),
+            Text("¿No tienes una cuenta?"),
+            RegistrerButton(),
+          ]
+        ),
       ),
     );
   }

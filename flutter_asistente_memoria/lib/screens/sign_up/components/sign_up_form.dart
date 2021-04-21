@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
-import 'package:flutter_asistente_memoria/bloc/login/login_bloc.dart';
+import 'package:flutter_asistente_memoria/bloc/sign_up/sign_up_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
-import 'package:flutter_asistente_memoria/screens/profile/profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-class LoginForm extends StatelessWidget {
+class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        _NameInput(),
+        SizedBox(
+          height: 10,
+        ),
         _EmailInput(),
         SizedBox(
           height: 10,
@@ -19,7 +22,46 @@ class LoginForm extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        _LoginButton(),
+        _SignUpButton(),
+      ],
+    );
+  }
+}
+
+class _NameInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Nombre",
+            textAlign: TextAlign.left,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        BlocBuilder<SignUpBloc, SignUpState> (
+          buildWhen: (previous, current) => previous.nameInput != current.nameInput || current.formzStatus.isInvalid,
+          builder: (context, state) {
+            return TextField(
+              key: const Key('signUpForm_nameInput_textField'),
+              onChanged: (nameInput) => context.read<SignUpBloc>().add(SignUpNameInputChanged(nameInput)),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(100)
+                ),
+                prefixIcon: Icon(
+                  Icons.account_circle,
+                ),
+                hintText: "Introduce tu Nombre",
+                errorText: state.nameInput.invalid || state.formzStatus.isInvalid && state.nameInput.pure ? "Nombre no válido" : null,
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -40,12 +82,12 @@ class _EmailInput extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        BlocBuilder<LoginBloc, LoginState> (
+        BlocBuilder<SignUpBloc, SignUpState> (
           buildWhen: (previous, current) => previous.emailInput != current.emailInput || current.formzStatus.isInvalid,
           builder: (context, state) {
             return TextField(
-              key: const Key('loginForm_emailInput_textField'),
-              onChanged: (emailInput) => context.read<LoginBloc>().add(LoginEmailInputChanged(emailInput)),
+              key: const Key('signUpForm_emailInput_textField'),
+              onChanged: (emailInput) => context.read<SignUpBloc>().add(SignUpEmailInputChanged(emailInput)),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(100)
@@ -93,12 +135,12 @@ class _PasswordInputState extends State<_PasswordInput>{
         SizedBox(
           height: 10,
         ),
-        BlocBuilder<LoginBloc, LoginState> (
+        BlocBuilder<SignUpBloc, SignUpState> (
           buildWhen: (previous, current) => previous.passwordInput != current.passwordInput || current.formzStatus.isInvalid,
           builder: (context, state) {
             return TextField(
-              key: const Key('loginForm_passwordInput_textField'),
-              onChanged: (passwordInput) => context.read<LoginBloc>().add(LoginPasswordInputChanged(passwordInput)),
+              key: const Key('signUpForm_passwordInput_textField'),
+              onChanged: (passwordInput) => context.read<SignUpBloc>().add(SignUpPasswordInputChanged(passwordInput)),
               obscureText: _obscureText,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -122,16 +164,18 @@ class _PasswordInputState extends State<_PasswordInput>{
   }
 }
 
-class _LoginButton extends StatelessWidget {
+class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.formzStatus != current.formzStatus,
       builder: (context, state) {
-        if (state.formzStatus.isSubmissionSuccess) {
+        print(state.formzStatus.toString());
+        if (state.formzStatus == FormzStatus.submissionSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(
             AuthenticationSingIn(Authentication.getCurrentUser()),
           );
+          Navigator.pop(context);
         }
         return SizedBox(
           width: double.infinity,
@@ -141,12 +185,13 @@ class _LoginButton extends StatelessWidget {
               shape: StadiumBorder(),
             ),
             onPressed: state.formzStatus.isSubmissionInProgress ? null : () {
-              context.read<LoginBloc>().add(const LoginSubmitted());
+              context.read<SignUpBloc>().add(const SignUpSubmitted());
             },
-            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Iniciar Sesión"),
+            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Registrarse"),
           ),
         );
       },
+
     );
   }
 }

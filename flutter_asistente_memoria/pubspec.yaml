@@ -16,8 +16,10 @@ dependencies:
   equatable:
   formz: ^0.4.0-nullsafety.0
   firebase_core: "^1.0.3"
-  firebase_analytics:
+  firebase_analytics: "^8.0.0"
   firebase_auth: "^1.0.3"
+  cloud_firestore: "^1.0.5"
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +28,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
 
         
     

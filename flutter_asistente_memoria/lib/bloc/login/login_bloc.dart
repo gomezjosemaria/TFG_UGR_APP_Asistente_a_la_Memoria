@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
+import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/model/email_input.dart';
 import 'package:flutter_asistente_memoria/model/password_input.dart';
 import 'package:formz/formz.dart';
@@ -49,14 +50,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginState state,
   ) async* {
     final FormzStatus formzStatus = Formz.validate([state.passwordInput, state.emailInput]);
-    final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
     if (formzStatus.isValidated) {
       yield state.copyWith(formzStatus: FormzStatus.submissionInProgress);
+      await Future.delayed(Duration(seconds: 3));
       try {
-        await _firebaseAuth.signInWithEmailAndPassword(email: state.emailInput.value, password: state.passwordInput.value);
+        Authentication.signInWithEmailAndPassword(state.emailInput.value, state.passwordInput.value);
         yield state.copyWith(formzStatus: FormzStatus.submissionSuccess);
-      } on FirebaseAuthException catch (e) {
-        print(e);
+        AuthenticationSingIn(Authentication.getCurrentUser());
+      } on Exception {
         yield state.copyWith(formzStatus: FormzStatus.submissionFailure);
       }
     }
@@ -70,4 +71,3 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
 }
-
