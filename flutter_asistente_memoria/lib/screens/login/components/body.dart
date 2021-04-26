@@ -13,7 +13,7 @@ class Body extends StatelessWidget {
             LoginForm(),
             Text("¿No tienes una cuenta?"),
             RegistrerButton(),
-          ]
+          ],
         ),
       ),
     );

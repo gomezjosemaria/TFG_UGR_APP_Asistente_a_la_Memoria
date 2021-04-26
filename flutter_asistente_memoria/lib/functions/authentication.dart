@@ -4,16 +4,6 @@ import 'package:flutter_asistente_memoria/model/user.dart';
 
 class Authentication {
 
-  /*final FirebaseAuth _firebaseAuth;
-  final FirebaseFirestore _firebaseFirestore;
-
-  Authentication({
-    FirebaseAuth? firebaseAuth,
-    FirebaseFirestore? firebaseFirestore,
-  }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-    _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
-*/
-
   static FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static CollectionReference _collectionReferenceUsers = FirebaseFirestore.instance.collection('users');
 
@@ -29,8 +19,8 @@ class Authentication {
   static Future<void> signUpWithEmailAndPassword(String name, String email, String password) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      await setUserName(_firebaseAuth.currentUser!, name);
       await signInWithEmailAndPassword(email, password);
+      await setUserName(name);
     } on FirebaseAuthException catch (e) {
       print(e);
       throw e;
@@ -46,14 +36,17 @@ class Authentication {
     }
   }
 
-  static Future<void> setUserName(User user, String name) async {
-    try {
-      await _collectionReferenceUsers.doc(user.uid).set({
-        'name': name,
-      });
-    } on FirebaseException catch (e) {
-      print(e);
-      throw e;
+  static Future<void> setUserName(String name) async {
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser != null) {
+      try {
+        firebaseUser.updateProfile(
+          displayName: name,
+        );
+      }
+      on FirebaseException catch (e) {
+        throw(e);
+      }
     }
   }
 
@@ -62,10 +55,10 @@ class Authentication {
     if (firebaseUser != null) {
       return UserModel(
         firebaseUser.uid,
+        firebaseUser.email!,
+        firebaseUser.displayName!,
         '',
-        '',
-        '',
-        false,
+        UserRole.unselected,
       );
     }
     else {
