@@ -170,7 +170,6 @@ class _SignUpButton extends StatelessWidget {
     return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.formzStatus != current.formzStatus,
       builder: (context, state) {
-        print(state.formzStatus.toString());
         if (state.formzStatus == FormzStatus.submissionSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(
             AuthenticationSingIn(Authentication.getCurrentUser()),

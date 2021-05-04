@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
-import 'package:flutter_asistente_memoria/screens/login/login.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogOutButton extends StatelessWidget {

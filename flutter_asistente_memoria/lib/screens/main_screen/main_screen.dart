@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_asistente_memoria/bloc/choose_role/choose_role_bloc.dart';
+import 'package:flutter_asistente_memoria/bloc/role/role_bloc.dart';
 import 'package:flutter_asistente_memoria/screens/choose_role/choose_role.dart';
 import 'package:flutter_asistente_memoria/screens/profile/profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +8,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChooseRoleBloc()..add(ChooseRoleStarted()),
+      create: (context) => RoleBloc()..add(RoleStarted()),
       child: Body(),
     );
   }
@@ -17,12 +17,11 @@ class MainScreen extends StatelessWidget {
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseRoleBloc, ChooseRoleState>(
+    return BlocBuilder<RoleBloc, RoleState>(
       builder: (context, state) {
-        if (state.status == ChooseRoleStatus.unselected) {
+        if (state.status == RoleStatus.unselected) {
           return ChooseRole();
-        }
-        else {
+        } else {
           return Profile();
         }
       },

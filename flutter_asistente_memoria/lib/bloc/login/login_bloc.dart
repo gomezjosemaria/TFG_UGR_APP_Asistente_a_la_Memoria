@@ -52,9 +52,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final FormzStatus formzStatus = Formz.validate([state.passwordInput, state.emailInput]);
     if (formzStatus.isValidated) {
       yield state.copyWith(formzStatus: FormzStatus.submissionInProgress);
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(Duration(seconds: 3)); //HAY QUE QUITARLO
       try {
-        Authentication.signInWithEmailAndPassword(state.emailInput.value, state.passwordInput.value);
+        await Authentication.signInWithEmailAndPassword(state.emailInput.value, state.passwordInput.value);
         yield state.copyWith(formzStatus: FormzStatus.submissionSuccess);
         AuthenticationSingIn(Authentication.getCurrentUser());
       } on Exception {

@@ -33,7 +33,6 @@ class MyAppView extends StatelessWidget {
       theme: ThemeData(),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          print(state.toString());
           if (state.authenticationStatus ==
               AuthenticationStatus.authenticated) {
             return MainScreen();

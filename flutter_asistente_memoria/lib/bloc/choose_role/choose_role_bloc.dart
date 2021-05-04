@@ -15,42 +15,32 @@ class ChooseRoleBloc extends Bloc<ChooseRoleEvent, ChooseRoleState> {
   Stream<ChooseRoleState> mapEventToState(
     ChooseRoleEvent event,
   ) async* {
-    if (event is ChooseRoleStarted) {
-      yield _mapChooseRoleStartedToState();
-    }
-    else if (event is ChooseRoleSelection) {
-      yield _mapChooseRoleSelectionToState();
-    }
-    else if (event is ChooseRoleCaregiver) {
-      yield _mapChooseRoleCaregiverToState();
+    if (event is ChooseRoleCaregiver) {
+      yield* _mapChooseRoleCaregiverToState();
     }
     else if (event is ChooseRoleCareReceiver) {
-      yield _mapChooseRoleCareReceiverToState();
+      yield* _mapChooseRoleCareReceiverToState();
     }
   }
 
-  ChooseRoleState _mapChooseRoleStartedToState() {
-    UserModel userModel = Authentication.getCurrentUser();
-    if (userModel.role == UserRole.caregiver) {
-      return state.caregiver();
-    }
-    else if (userModel.role == UserRole.careReceiver) {
-      return state.careReceiver();
-    }
-    else {
-      return state.unselected();
+  Stream<ChooseRoleState> _mapChooseRoleCaregiverToState() async* {
+    yield state.caregiverSelectionProgress();
+    try {
+      Authentication.setUserRole(UserRole.caregiver);
+      yield state.selectionSuccess();
+    } on Exception {
+      yield state.error();
     }
   }
 
-  ChooseRoleState _mapChooseRoleSelectionToState() {
-    return state.unselected();
-  }
-
-  ChooseRoleState _mapChooseRoleCaregiverToState() {
-    return state.caregiver();
-  }
-
-  ChooseRoleState _mapChooseRoleCareReceiverToState() {
-    return state.careReceiver();
+  Stream<ChooseRoleState> _mapChooseRoleCareReceiverToState() async* {
+    yield state.careReceiverSelectionProgress();
+    try {
+      Authentication.setUserRole(UserRole.careReceiver);
+      yield state.selectionSuccess();
+    } on Exception {
+      yield state.error();
+    }
   }
 }
+
