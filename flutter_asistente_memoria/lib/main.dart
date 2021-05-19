@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_asistente_memoria/screens/login/login.dart';
+import 'package:flutter_asistente_memoria/screens/main_menu/main_menu.dart';
 import 'package:flutter_asistente_memoria/screens/main_screen/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +38,7 @@ class MyAppView extends StatelessWidget {
               AuthenticationStatus.authenticated) {
             return MainScreen();
           } else {
-            return Login();
+            return MainMenu();
           }
         },
       ),
