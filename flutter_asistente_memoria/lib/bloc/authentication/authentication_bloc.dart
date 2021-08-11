@@ -16,23 +16,21 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     AuthenticationEvent event,
   ) async* {
     if (event is AuthenticationStarted) {
-      yield _mapAuthenticationStartedToState();
+      UserModel userModel = Authentication.getCurrentUser();
+      if (userModel.id == '') {
+        yield state.unauthenticated();
+      }
+      else {
+        await Authentication.loadUserRole();
+        await Authentication.loadUserBond();
+        yield state.authenticated(userModel);
+      }
     }
     else if (event is AuthenticationSingIn) {
       yield _mapAuthenticationSingInToState(event);
     }
     else if (event is AuthenticationSingOut) {
       yield _mapAuthenticationSingOutToState();
-    }
-  }
-
-  AuthenticationState _mapAuthenticationStartedToState() {
-    UserModel userModel = Authentication.getCurrentUser();
-    if (userModel.id == '') {
-      return state.unauthenticated();
-    }
-    else {
-      return state.authenticated(userModel);
     }
   }
 

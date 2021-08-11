@@ -62,11 +62,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
     else {
-      yield state.copyWith(
-        formzStatus: FormzStatus.invalid,
-        emailInput: state.emailInput,
-        passwordInput: state.passwordInput,
-      );
+      yield state.copyWith(formzStatus: FormzStatus.invalid);
     }
   }
 

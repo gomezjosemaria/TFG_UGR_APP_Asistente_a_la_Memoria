@@ -16,12 +16,11 @@ class UserModel extends Equatable {
   final String id;
   final String email;
   final String name;
-  final String photo;
 
-  const UserModel(this.id, this.email, this.name, this.photo);
+  const UserModel(this.id, this.email, this.name);
 
   @override
-  List<Object?> get props => [id, email, name, photo];
+  List<Object?> get props => [id, email, name];
 
-  static const empty = UserModel('', '', '', '');
+  static const empty = UserModel('', '', '');
 }

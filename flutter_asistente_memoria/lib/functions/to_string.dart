@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ToString {
@@ -30,6 +32,11 @@ class ToString {
     }
 
     return _hour + ':' + _minute + ' ' + _period;
+  }
+
+  static randomString(int length) {
+    var random = Random.secure();
+    return String.fromCharCodes(List.generate(length, (index) => random.nextInt(33) + 89));
   }
 
 }

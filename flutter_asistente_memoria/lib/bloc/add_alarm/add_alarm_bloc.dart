@@ -77,9 +77,7 @@ class AddAlarmBloc extends Bloc<AddAlarmEvent, AddAlarmState> {
       state.repeat.toString(),
       state.repeatWeekDays.toString(),
     );
-    print("Submitted");
     if (status.isValidated) {
-      print("isValidated");
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
         AlarmManager.saveAlarm(alarm);
@@ -89,7 +87,6 @@ class AddAlarmBloc extends Bloc<AddAlarmEvent, AddAlarmState> {
       }
     }
     else {
-      print("isNotValidated");
       yield state.copyWith(
         status: FormzStatus.invalid,
         titleInput: state.titleInput,
