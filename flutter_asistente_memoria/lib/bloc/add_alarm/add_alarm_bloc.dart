@@ -4,9 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/functions/alarm_manager.dart';
+import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/functions/to_string.dart';
 import 'package:flutter_asistente_memoria/model/alarm.dart';
 import 'package:flutter_asistente_memoria/model/name_input.dart';
+import 'package:flutter_asistente_memoria/model/user.dart';
 import 'package:formz/formz.dart';
 
 part 'add_alarm_event.dart';
@@ -71,16 +73,20 @@ class AddAlarmBloc extends Bloc<AddAlarmEvent, AddAlarmState> {
   Stream<AddAlarmState> _mapAddAlarmSubmittedToState(AddAlarmSubmitted event, AddAlarmState state) async* {
     final FormzStatus status = Formz.validate([state.titleInput]);
     final AlarmModel alarm = new AlarmModel(
-      '',
       state.titleInput.value,
       ToString.timeOfDayToString(state.timeInput),
-      state.repeat.toString(),
-      state.repeatWeekDays.toString(),
+      state.repeat,
+      state.repeatWeekDays,
     );
     if (status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
-        AlarmManager.saveAlarm(alarm);
+        if (Authentication.getUserRole() == UserRole.caregiver) {
+          await AlarmManager.saveAlarm(alarm, Authentication.getUserBond());
+        }
+        else {
+          await AlarmManager.saveAlarm(alarm, Authentication.getCurrentUser().email);
+        }
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception {
         yield state.copyWith(status: FormzStatus.submissionFailure);

@@ -198,4 +198,14 @@ class Authentication {
       return UserModel.empty;
     }
   }
+
+  static String getCurrentUserEmail() {
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser != null) {
+      return firebaseUser.email!;
+    }
+    else {
+      return '';
+    }
+  }
 }
