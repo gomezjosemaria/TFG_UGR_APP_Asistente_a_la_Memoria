@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/add_alarm/add_alarm_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/to_string.dart';
+import 'package:flutter_asistente_memoria/screens/alarms/alarms.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:weekday_selector/weekday_selector.dart';
@@ -50,9 +51,16 @@ class AddAlarm extends StatelessWidget {
 class _AddAlarmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddAlarmBloc, AddAlarmState>(
+    return BlocConsumer<AddAlarmBloc, AddAlarmState>(
+      listenWhen: (previous, current) =>
+      previous.status != current.status,
+      listener: (context, state) {
+        if (state.status.isSubmissionSuccess) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alarms()));
+        }
+      },
       buildWhen: (previous, current) =>
-      previous.status!= current.status,
+      previous.status != current.status,
       builder: (context, state) {
         return SizedBox(
           width: double.infinity,

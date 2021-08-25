@@ -10,11 +10,13 @@ class Alarms extends StatelessWidget {
       appBar: AppBar(
         title: Text('Alarmas'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => AlarmsBloc()..add(AlarmsStarted()),
-          child: Body(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => AlarmsBloc()..add(AlarmsStarted()),
+            child: Body(),
+          ),
         ),
       ),
     );

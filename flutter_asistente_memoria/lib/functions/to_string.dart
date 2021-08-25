@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ToString {
 
@@ -37,6 +38,12 @@ class ToString {
   static randomString(int length) {
     var random = Random.secure();
     return String.fromCharCodes(List.generate(length, (index) => random.nextInt(33) + 89));
+  }
+
+  static TimeOfDay stringToTimeOfDay(String time) {
+    DateTime dateTime = DateFormat("h:mm a").parse(time);
+    TimeOfDay timeOfDay = TimeOfDay.fromDateTime(dateTime);
+    return timeOfDay;
   }
 
 }

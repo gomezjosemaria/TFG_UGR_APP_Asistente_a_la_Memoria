@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_asistente_memoria/bloc/login/login_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
-import 'package:flutter_asistente_memoria/screens/profile/profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 

@@ -11,32 +11,32 @@ class AlarmList extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status == AlarmsStatus.alarmsLoadedSuccessfully) {
-          var listActivated = <Alarm>[];
-          var listDeactivated = <Alarm>[];
+          var listActivated = <Widget>[];
+          var listDeactivated = <Widget>[];
 
           state.alarmsActivated.forEach((i) {
             Alarm alarm = new Alarm(alarmModel: i, activated: true);
             listActivated.add(alarm);
+            listActivated.add(new SizedBox(height: 10,));
           });
 
           state.alarmsDeactivated.forEach((i) {
             Alarm alarm = new Alarm(alarmModel: i, activated: false);
             listDeactivated.add(alarm);
+            listDeactivated.add(new SizedBox(height: 10,));
           });
 
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Text("Activas"),
-                Column(
-                  children: listActivated,
-                ),
-                Text("Desactivadas"),
-                Column(
-                  children: listDeactivated,
-                ),
-              ],
-            ),
+          return Column(
+            children: [
+              Text("Activas"),
+              Column(
+                children: listActivated,
+              ),
+              Text("Desactivadas"),
+              Column(
+                children: listDeactivated,
+              ),
+            ],
           );
         } else {
           return Text('Cargando alarmas');

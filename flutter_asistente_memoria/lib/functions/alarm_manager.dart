@@ -8,18 +8,32 @@ class AlarmManager {
   static List<AlarmModel> _alarmsActive = <AlarmModel>[];
   static List<AlarmModel> _alarmsDeactivate = <AlarmModel>[];
 
-  static Future<void> saveAlarm(AlarmModel alarm, String userEmail) async {
+  static Future<void> saveAlarm(AlarmModel alarm, String userEmail, bool active) async {
     try {
-      await _collectionReferenceAlarms
-          .doc(userEmail)
-          .collection('active')
-          .doc(alarm.time + alarm.tittle)
-          .set({
-        'title': alarm.tittle,
-        'time': alarm.time,
-        'repeat': alarm.repeat,
-        if (alarm.repeat) 'repeatWeekDays': alarm.repeatWeekDays,
-      });
+      if (active) {
+        await _collectionReferenceAlarms
+            .doc(userEmail)
+            .collection('active')
+            .doc(alarm.time + alarm.tittle)
+            .set({
+          'title': alarm.tittle,
+          'time': alarm.time,
+          'repeat': alarm.repeat,
+          'repeatWeekDays': alarm.repeatWeekDays,
+        });
+      }
+      else {
+        await _collectionReferenceAlarms
+            .doc(userEmail)
+            .collection('deactivate')
+            .doc(alarm.time + alarm.tittle)
+            .set({
+          'title': alarm.tittle,
+          'time': alarm.time,
+          'repeat': alarm.repeat,
+          'repeatWeekDays': alarm.repeatWeekDays,
+        });
+      }
     } on FirebaseException catch (e) {
       throw (e);
     }
@@ -40,8 +54,9 @@ class AlarmManager {
           alarm.data()['title'].toString(),
           alarm.data()['time'].toString(),
           alarm.data()['repeat'],
-          alarm.data()['repeat'] == true ? alarm.data()['repeatWeekDays'] : [false, false, false, false, false, false, false],
+          List<bool>.from(alarm.data()['repeatWeekDays']),
         );
+        print('UNA MAS');
         _alarmsActive.add(alarmModel);
       }
 
@@ -52,13 +67,14 @@ class AlarmManager {
           alarm.data()['title'].toString(),
           alarm.data()['time'].toString(),
           alarm.data()['repeat'],
-          alarm.data()['repeat'] == true ? alarm.data()['repeatWeekDays'] : [false, false, false, false, false, false, false],
+          List<bool>.from(alarm.data()['repeatWeekDays']),
         );
         _alarmsDeactivate.add(alarmModel);
       }
     } on FirebaseException catch (e) {
-    throw (e);
+      throw (e);
     }
+    print("Alarms loaded");
   }
 
   static getAlarmsActive() {
@@ -67,5 +83,24 @@ class AlarmManager {
 
   static getAlarmsDeactivate() {
     return _alarmsDeactivate;
+  }
+
+  static deleteAlarm(AlarmModel alarm, String userEmail, bool active) {
+    if (active) {
+      try {
+        var collectionReferenceAlarmsActive = _collectionReferenceAlarms.doc(userEmail).collection('active');
+        collectionReferenceAlarmsActive.doc(alarm.time + alarm.tittle).delete();
+      } on FirebaseException catch (e) {
+        throw (e);
+      }
+    }
+    else {
+      try {
+        var collectionReferenceAlarmsDeactivate = _collectionReferenceAlarms.doc(userEmail).collection('deactivate');
+        collectionReferenceAlarmsDeactivate.doc(alarm.time + alarm.tittle).delete();
+      } on FirebaseException catch (e) {
+        throw (e);
+      }
+    }
   }
 }

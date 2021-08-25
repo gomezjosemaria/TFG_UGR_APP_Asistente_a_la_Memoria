@@ -82,10 +82,10 @@ class AddAlarmBloc extends Bloc<AddAlarmEvent, AddAlarmState> {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
         if (Authentication.getUserRole() == UserRole.caregiver) {
-          await AlarmManager.saveAlarm(alarm, Authentication.getUserBond());
+          await AlarmManager.saveAlarm(alarm, Authentication.getUserBond(), true);
         }
         else {
-          await AlarmManager.saveAlarm(alarm, Authentication.getCurrentUser().email);
+          await AlarmManager.saveAlarm(alarm, Authentication.getCurrentUser().email, true);
         }
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception {

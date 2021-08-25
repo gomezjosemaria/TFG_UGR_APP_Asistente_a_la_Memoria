@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/model/alarm.dart';
+import 'package:flutter_asistente_memoria/screens/edit_alarm/edit_alarm.dart';
 
 class Alarm extends StatelessWidget {
 
@@ -10,22 +11,26 @@ class Alarm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        color: Colors.blue,
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditAlarm(alarmModel: alarmModel, activated: activated,)));
+        },
+        child: Container(
+          child: Column(
             children: [
-              Text(alarmModel.time),
-              Switch(value: activated, onChanged: null),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(alarmModel.time),
+                  Switch(value: activated, onChanged: null),
+                ],
+              ),
+              Text(alarmModel.tittle),
             ],
           ),
-          Text(alarmModel.tittle),
-        ],
+        ),
       ),
     );
   }
