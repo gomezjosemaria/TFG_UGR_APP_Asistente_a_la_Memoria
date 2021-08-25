@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/model/alarm.dart';
+import 'package:flutter_asistente_memoria/screens/edit_alarm/components/deactivate_alarm_button.dart';
+import 'package:flutter_asistente_memoria/screens/edit_alarm/components/delete_alarm_button.dart';
 import 'package:flutter_asistente_memoria/screens/edit_alarm/components/edit_alarm_form.dart';
 
 class Body extends StatelessWidget {
@@ -17,6 +19,16 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             EditAlarmForm(alarmModel: alarmModel, activated: activated,),
+            SizedBox(
+              width: double.infinity,
+              height: 10.0,
+            ),
+            DeleteAlarmButton(alarmModel: alarmModel, activated: activated),
+            SizedBox(
+              width: double.infinity,
+              height: 10.0,
+            ),
+            DeactivateAlarmButton(alarmModel: alarmModel, activated: activated),
           ],
         ),
       ),

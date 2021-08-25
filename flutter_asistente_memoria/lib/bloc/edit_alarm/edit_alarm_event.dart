@@ -68,3 +68,23 @@ class EditAlarmSubmitted extends EditAlarmEvent {
   @override
   List<Object> get props => [alarmUnmodified, activateUnmodified];
 }
+
+class EditAlarmDelete extends EditAlarmEvent {
+  final AlarmModel alarmUnmodified;
+  final bool activateUnmodified;
+
+  EditAlarmDelete(this.alarmUnmodified, this.activateUnmodified);
+
+  @override
+  List<Object> get props => [alarmUnmodified, activateUnmodified];
+}
+
+class EditAlarmDeactivate extends EditAlarmEvent {
+  final AlarmModel alarmUnmodified;
+  final bool activateUnmodified;
+
+  EditAlarmDeactivate(this.alarmUnmodified, this.activateUnmodified);
+
+  @override
+  List<Object> get props => [alarmUnmodified, activateUnmodified];
+}

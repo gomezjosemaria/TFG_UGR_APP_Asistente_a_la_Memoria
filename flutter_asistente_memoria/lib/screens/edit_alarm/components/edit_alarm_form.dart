@@ -112,7 +112,6 @@ class _EditAlarmRepeat extends StatelessWidget {
                   List<bool> auxRepeatWeekDays = List.from(state.repeatWeekDays);
                   auxRepeatWeekDays[day % 7] = !auxRepeatWeekDays[day % 7];
                   context.read<EditAlarmBloc>().add(EditAlarmRepeatWeekDaysChanged(auxRepeatWeekDays));
-                  print(day % 7);
                 },
                 values: state.repeatWeekDays,
                 shortWeekdays: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],

@@ -56,7 +56,6 @@ class AlarmManager {
           alarm.data()['repeat'],
           List<bool>.from(alarm.data()['repeatWeekDays']),
         );
-        print('UNA MAS');
         _alarmsActive.add(alarmModel);
       }
 
@@ -74,7 +73,6 @@ class AlarmManager {
     } on FirebaseException catch (e) {
       throw (e);
     }
-    print("Alarms loaded");
   }
 
   static getAlarmsActive() {

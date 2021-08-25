@@ -68,9 +68,7 @@ class Authentication {
         await _collectionReferenceUsers.doc(firebaseUser.email).update({
           'role': userRoleToString(role),
         });
-        print(role);
         if (role == UserRole.careReceiver) {
-          print("YES");
           await _collectionReferenceUsers.doc(firebaseUser.email).update({
             'bondCode': ToString.randomString(5),
           });
@@ -125,7 +123,6 @@ class Authentication {
               if (documentSnapshot.data()!['bond'] != null) {
                 _userBonds = List.from(documentSnapshot.data()!['bond']);
               }
-              print("No entiendo " + documentSnapshot.data()!['bond'].toString());
             }
           }
         });
@@ -145,7 +142,6 @@ class Authentication {
 
   static Future<void> bondCurrentUser(String userEmail, String userCode) async {
     User? firebaseUser = _firebaseAuth.currentUser;
-    print("BONDING");
     if (firebaseUser != null) {
       try {
         await _collectionReferenceUsers
@@ -153,7 +149,6 @@ class Authentication {
             .get()
             .then((DocumentSnapshot documentSnapshot) async {
           if (documentSnapshot.exists) {
-            print(documentSnapshot.data()!['role'].toString());
             if (documentSnapshot.data()!['role'].toString() == 'careReceiver') {
               if (documentSnapshot.data()!['bondCode'].toString() == userCode) {
                 await _collectionReferenceUsers.doc(firebaseUser.email).update({

@@ -40,3 +40,21 @@ class EditAlarmState extends Equatable {
   @override
   List<Object> get props => [status, titleInput, timeInput, repeat, repeatWeekDays, active];
 }
+
+class EditAlarmDeleteState extends EditAlarmState {}
+
+class EditAlarmDeletingState extends EditAlarmDeleteState {}
+
+class EditAlarmDeleteSuccessState extends EditAlarmDeleteState {}
+
+class EditAlarmDeleteErrorState extends EditAlarmDeleteState {}
+
+class EditAlarmDeactivateState extends EditAlarmState {}
+
+class EditAlarmDeactivatingState extends EditAlarmDeactivateState {}
+
+class EditAlarmDeactivateSuccessState extends EditAlarmDeactivateState {}
+
+class EditAlarmDeactivateErrorState extends EditAlarmDeactivateState {}
+
+

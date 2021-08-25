@@ -42,6 +42,12 @@ class EditAlarmBloc extends Bloc<EditAlarmEvent, EditAlarmState> {
     else if (event is EditAlarmSubmitted) {
       yield* _mapEditAlarmSubmittedToState(event, state);
     }
+    else if (event is EditAlarmDelete) {
+      yield* _mapEditAlarmDeleteToState(event, state);
+    }
+    else if (event is EditAlarmDeactivate) {
+      yield* _mapEditAlarmDeactivateToState(event, state);
+    }
   }
 
   Stream<EditAlarmState> _mapEditAlarmSubmittedToState(EditAlarmSubmitted event, EditAlarmState state) async* {
@@ -66,7 +72,11 @@ class EditAlarmBloc extends Bloc<EditAlarmEvent, EditAlarmState> {
       }
 
       if (event.alarmUnmodified.tittle != state.titleInput.value || event.alarmUnmodified.time != ToString.timeOfDayToString(state.timeInput)) {
-        await AlarmManager.deleteAlarm(event.alarmUnmodified, userEmail, event.activateUnmodified);
+        try {
+          await AlarmManager.deleteAlarm(event.alarmUnmodified, userEmail, event.activateUnmodified);
+        } on Exception {
+          yield state.copyWith(status: FormzStatus.submissionFailure);
+        }
       }
 
       try {
@@ -136,5 +146,40 @@ class EditAlarmBloc extends Bloc<EditAlarmEvent, EditAlarmState> {
       repeatWeekDays: event.alarm.repeatWeekDays,
       active: event.activated,
     );
+  }
+
+  Stream<EditAlarmState> _mapEditAlarmDeleteToState(EditAlarmDelete event, EditAlarmState state) async* {
+    var userEmail;
+    yield EditAlarmDeletingState();
+    if (Authentication.getUserRole() == UserRole.caregiver) {
+      userEmail = Authentication.getUserBond();
+    }
+    else {
+      userEmail = Authentication.getCurrentUser().email;
+    }
+    try {
+      await AlarmManager.deleteAlarm(event.alarmUnmodified, userEmail, event.activateUnmodified);
+    } on Exception {
+      yield EditAlarmDeleteErrorState();
+    }
+    yield EditAlarmDeleteSuccessState();
+  }
+
+  Stream<EditAlarmState> _mapEditAlarmDeactivateToState(EditAlarmDeactivate event, EditAlarmState state) async* {
+    var userEmail;
+    yield EditAlarmDeactivatingState();
+    if (Authentication.getUserRole() == UserRole.caregiver) {
+      userEmail = Authentication.getUserBond();
+    }
+    else {
+      userEmail = Authentication.getCurrentUser().email;
+    }
+    try {
+      await AlarmManager.deleteAlarm(event.alarmUnmodified, userEmail, event.activateUnmodified);
+      await AlarmManager.saveAlarm(event.alarmUnmodified, userEmail, !event.activateUnmodified);
+    } on Exception {
+      yield EditAlarmDeactivateErrorState();
+    }
+    yield EditAlarmDeactivateSuccessState();
   }
 }
