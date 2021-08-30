@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/screens/alarms/alarms.dart';
 import 'package:flutter_asistente_memoria/screens/main_menu/components/menu_button.dart';
+import 'package:flutter_asistente_memoria/screens/medication/medication.dart';
 import 'package:flutter_asistente_memoria/screens/profile/profile.dart';
 
 class ButtonGrid extends StatelessWidget {
@@ -24,6 +25,13 @@ class ButtonGrid extends StatelessWidget {
           icon: Icons.alarm,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alarms()));
+          },
+        ),
+        MenuButton(
+          title: 'Medicación',
+          icon: Icons.mediation,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Medication()));
           },
         ),
       ],

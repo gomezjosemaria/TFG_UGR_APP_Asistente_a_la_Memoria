@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_asistente_memoria/model/alarm.dart';
+import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 import 'package:flutter_asistente_memoria/screens/edit_alarm/components/deactivate_alarm_button.dart';
 import 'package:flutter_asistente_memoria/screens/edit_alarm/components/delete_alarm_button.dart';
 import 'package:flutter_asistente_memoria/screens/edit_alarm/components/edit_alarm_form.dart';

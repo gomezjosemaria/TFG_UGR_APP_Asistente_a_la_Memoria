@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/functions/alarm_manager.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/functions/to_string.dart';
-import 'package:flutter_asistente_memoria/model/alarm.dart';
+import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 import 'package:flutter_asistente_memoria/model/name_input.dart';
 import 'package:flutter_asistente_memoria/model/user.dart';
 import 'package:formz/formz.dart';

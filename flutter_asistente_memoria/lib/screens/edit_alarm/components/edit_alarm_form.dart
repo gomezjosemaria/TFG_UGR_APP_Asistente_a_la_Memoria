@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/edit_alarm/edit_alarm_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/to_string.dart';
-import 'package:flutter_asistente_memoria/model/alarm.dart';
+import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 import 'package:flutter_asistente_memoria/screens/alarms/alarms.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weekday_selector/weekday_selector.dart';

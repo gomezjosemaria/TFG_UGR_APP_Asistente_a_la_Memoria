@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_asistente_memoria/model/alarm.dart';
+import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 
 class AlarmManager {
 
