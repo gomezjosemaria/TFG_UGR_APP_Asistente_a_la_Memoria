@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_asistente_memoria/screens/alarms/components/add_alarm_button.dart';
-import 'package:flutter_asistente_memoria/screens/alarms/components/alarm_list.dart';
+
+import 'add_appointment_form.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -10,8 +10,7 @@ class Body extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            AddAlarmButton(),
-            AlarmList(),
+            AddAppointmentForm(),
           ],
         ),
       ),

@@ -43,7 +43,9 @@ class _MedicationFrequencyNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AddMedicationBloc, AddMedicationState>(
         buildWhen: (previous, current) =>
-            previous.frequency != current.frequency || previous.frequencyNumber != current.frequencyNumber || previous.repeatWeekDays != current.repeatWeekDays,
+            previous.frequency != current.frequency ||
+            previous.frequencyNumber != current.frequencyNumber ||
+            previous.repeatWeekDays != current.repeatWeekDays,
         builder: (context, state) {
           print(state);
           if (state.frequency == MedicationManager.getFrequencyOptions()[1] ||
@@ -107,7 +109,8 @@ class _MedicationFrequencyNumber extends StatelessWidget {
                     List<bool> auxRepeatWeekDays =
                         List.from(state.repeatWeekDays);
                     auxRepeatWeekDays[day % 7] = !auxRepeatWeekDays[day % 7];
-                    context.read<AddMedicationBloc>().add(AddMedicationRepeatWeekDaysChanged(auxRepeatWeekDays));
+                    context.read<AddMedicationBloc>().add(
+                        AddMedicationRepeatWeekDaysChanged(auxRepeatWeekDays));
                   },
                   values: state.repeatWeekDays,
                   shortWeekdays: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],

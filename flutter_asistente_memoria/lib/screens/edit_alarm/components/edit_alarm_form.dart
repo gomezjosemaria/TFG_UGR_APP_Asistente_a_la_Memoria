@@ -19,7 +19,7 @@ class EditAlarmForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _EditAlarmTitleInput(initialValue: alarmModel.tittle,),
+        _EditAlarmTitleInput(),
         SizedBox(
           width: double.infinity,
           height: 10.0,
@@ -171,10 +171,6 @@ class _EditAlarmTimeInput extends StatelessWidget {
 }
 
 class _EditAlarmTitleInput extends StatelessWidget {
-  final String initialValue;
-
-  const _EditAlarmTitleInput({Key? key, required this.initialValue}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
