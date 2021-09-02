@@ -113,7 +113,7 @@ class _AppointmentDateInput extends StatelessWidget {
                     var selectedDate = await showDatePicker(
                       context: context,
                       lastDate: DateTime(2101),
-                      firstDate: DateTime.now().add(const Duration(days: 1)),
+                      firstDate: DateTime.now(),
                       initialDate: state.dateInput,
                     );
 

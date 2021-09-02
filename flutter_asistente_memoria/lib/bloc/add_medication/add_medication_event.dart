@@ -13,6 +13,15 @@ class AddMedicationNameChanged extends AddMedicationEvent {
   List<Object?> get props => [nameInput];
 }
 
+class AddMedicationDateChanged extends AddMedicationEvent {
+  final DateTime dateInput;
+
+  AddMedicationDateChanged(this.dateInput);
+
+  @override
+  List<Object?> get props => [dateInput];
+}
+
 class AddMedicationTimeChanged extends AddMedicationEvent {
   final TimeOfDay timeInput;
 

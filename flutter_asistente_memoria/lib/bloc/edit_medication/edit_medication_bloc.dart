@@ -27,6 +27,9 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     else if (event is EditMedicationNameChanged) {
       yield _mapEditMedicationNameChangedToState(event, state);
     }
+    else if(event is EditMedicationDateChanged) {
+      yield _mapEditMedicationDateChangedToState(event, state);
+    }
     else if (event is EditMedicationTimeChanged) {
       yield _mapEditMedicationTimeChangedToState(event, state);
     }
@@ -57,6 +60,7 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     return state.copyWith(
       status: Formz.validate([NameInput.dirty(event.medication.name)]),
       nameInput: NameInput.dirty(event.medication.name),
+      dateInput: DateTime.parse(event.medication.date),
       timeInput: ToString.stringToTimeOfDay(event.medication.time),
       frequency: event.medication.frequency,
       frequencyNumber: event.medication.frequencyNumber.toString(),
@@ -77,7 +81,6 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     final timeInput = event.timeInput;
     return state.copyWith(
       timeInput: timeInput,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -93,7 +96,6 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     return state.copyWith(
       frequency: frequency,
       frequencyNumber: frequencyNumber,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -101,7 +103,6 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     final frequencyNumber = event.frequencyNumber;
     return state.copyWith(
       frequencyNumber: frequencyNumber,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -109,7 +110,6 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     final repeatWeekDays = event.repeatWeekDays;
     return state.copyWith(
       repeatWeekDays: repeatWeekDays,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -117,7 +117,6 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     final active = event.active;
     return state.copyWith(
       active: active,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -125,6 +124,7 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     final FormzStatus status = Formz.validate([state.nameInput]);
     final MedicationModel medication = new MedicationModel(
       state.nameInput.value,
+      state.dateInput.toString(),
       ToString.timeOfDayToString(state.timeInput),
       state.frequency,
       double.parse(state.frequencyNumber),
@@ -161,11 +161,6 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
     else {
       yield state.copyWith(
         status: FormzStatus.invalid,
-        nameInput: state.nameInput,
-        timeInput: state.timeInput,
-        frequency: state.frequency,
-        frequencyNumber: state.frequencyNumber,
-        repeatWeekDays: state.repeatWeekDays,
       );
     }
   }
@@ -203,5 +198,12 @@ class EditMedicationBloc extends Bloc<EditMedicationEvent, EditMedicationState> 
       yield EditMedicationDeactivateErrorState();
     }
     yield EditMedicationDeactivateSuccessState();
+  }
+
+  EditMedicationState _mapEditMedicationDateChangedToState(EditMedicationDateChanged event, EditMedicationState state) {
+    final dateInput = event.dateInput;
+    return state.copyWith(
+      dateInput: dateInput,
+    );
   }
 }

@@ -44,6 +44,7 @@ class MedicationManager {
             .doc(medication.time + medication.name)
             .set({
           'name': medication.name,
+          'date': medication.date,
           'time': medication.time,
           'frequency': medication.frequency,
           'frequencyNumber': medication.frequencyNumber,
@@ -57,6 +58,7 @@ class MedicationManager {
             .doc(medication.time + medication.name)
             .set({
           'name': medication.name,
+          'date': medication.date,
           'time': medication.time,
           'frequency': medication.frequency,
           'frequencyNumber': medication.frequencyNumber,
@@ -81,6 +83,7 @@ class MedicationManager {
         var medication = querySnapshotActive.docs[i];
         var medicationModel = new MedicationModel(
           medication.data()['name'].toString(),
+          medication.data()['date'].toString(),
           medication.data()['time'].toString(),
           medication.data()['frequency'],
           medication.data()['frequencyNumber'],
@@ -94,6 +97,7 @@ class MedicationManager {
         var medication = querySnapshotDeactivate.docs[i];
         var medicationModel = new MedicationModel(
           medication.data()['name'].toString(),
+          medication.data()['date'].toString(),
           medication.data()['time'].toString(),
           medication.data()['frequency'],
           medication.data()['frequencyNumber'],

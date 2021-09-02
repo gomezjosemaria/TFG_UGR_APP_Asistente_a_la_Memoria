@@ -24,6 +24,9 @@ class AddMedicationBloc extends Bloc<AddMedicationEvent, AddMedicationState> {
     if (event is AddMedicationNameChanged) {
       yield _mapAddMedicationNameChangedToState(event, state);
     }
+    else if(event is AddMedicationDateChanged) {
+      yield _mapAddMedicationDateChangedToState(event, state);
+    }
     else if (event is AddMedicationTimeChanged) {
       yield _mapAddMedicationTimeChangedToState(event, state);
     }
@@ -53,7 +56,6 @@ class AddMedicationBloc extends Bloc<AddMedicationEvent, AddMedicationState> {
     final timeInput = event.timeInput;
     return state.copyWith(
       timeInput: timeInput,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -69,7 +71,6 @@ class AddMedicationBloc extends Bloc<AddMedicationEvent, AddMedicationState> {
     return state.copyWith(
       frequency: frequency,
       frequencyNumber: frequencyNumber,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -77,7 +78,6 @@ class AddMedicationBloc extends Bloc<AddMedicationEvent, AddMedicationState> {
     final frequencyNumber = event.frequencyNumber;
     return state.copyWith(
       frequencyNumber: frequencyNumber,
-      status: Formz.validate([state.nameInput]),
     );
   }
 
@@ -85,6 +85,7 @@ class AddMedicationBloc extends Bloc<AddMedicationEvent, AddMedicationState> {
     final FormzStatus status = Formz.validate([state.nameInput]);
     final MedicationModel medication = new MedicationModel(
       state.nameInput.value,
+      state.dateInput.toString(),
       ToString.timeOfDayToString(state.timeInput),
       state.frequency,
       double.parse(state.frequencyNumber),
@@ -115,7 +116,13 @@ class AddMedicationBloc extends Bloc<AddMedicationEvent, AddMedicationState> {
     final repeatWeekDays = event.repeatWeekDays;
     return state.copyWith(
       repeatWeekDays: repeatWeekDays,
-      status: Formz.validate([state.nameInput]),
+    );
+  }
+
+  AddMedicationState _mapAddMedicationDateChangedToState(AddMedicationDateChanged event, AddMedicationState state) {
+    final dateInput = event.dateInput;
+    return state.copyWith(
+      dateInput: dateInput,
     );
   }
 

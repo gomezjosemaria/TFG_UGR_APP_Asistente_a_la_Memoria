@@ -23,6 +23,15 @@ class EditMedicationNameChanged extends EditMedicationEvent {
   List<Object?> get props => [nameInput];
 }
 
+class EditMedicationDateChanged extends EditMedicationEvent {
+  final DateTime dateInput;
+
+  EditMedicationDateChanged(this.dateInput);
+
+  @override
+  List<Object?> get props => [dateInput];
+}
+
 class EditMedicationTimeChanged extends EditMedicationEvent {
   final TimeOfDay timeInput;
 

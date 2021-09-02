@@ -17,6 +17,11 @@ class AddMedicationForm extends StatelessWidget {
           width: double.infinity,
           height: 10.0,
         ),
+        _MedicationDateInput(),
+        SizedBox(
+          width: double.infinity,
+          height: 10.0,
+        ),
         _MedicationTimeInput(),
         SizedBox(
           width: double.infinity,
@@ -33,6 +38,57 @@ class AddMedicationForm extends StatelessWidget {
           height: 10.0,
         ),
         _AddMedicationButton()
+      ],
+    );
+  }
+}
+
+class _MedicationDateInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Fecha',
+            textAlign: TextAlign.left,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        BlocBuilder<AddMedicationBloc, AddMedicationState>(
+            buildWhen: (previous, current) =>
+            previous.dateInput != current.dateInput,
+            builder: (context, state) {
+              return SizedBox(
+                width: double.infinity,
+                height: 80.0,
+                child: ElevatedButton(
+                  key: const Key('addMedicationForm_dateInput_elevatedButton'),
+                  onPressed: () async {
+                    var selectedDate = await showDatePicker(
+                      context: context,
+                      lastDate: DateTime(2101),
+                      firstDate: DateTime(2020),
+                      initialDate: state.dateInput,
+                    );
+
+                    if (selectedDate != null &&
+                        selectedDate != state.dateInput) {
+                      context
+                          .read<AddMedicationBloc>()
+                          .add(AddMedicationDateChanged(selectedDate));
+                    }
+                  },
+                  child: Text(
+                    "${state.dateInput.day}/${state.dateInput.month}/${state.dateInput.year}",
+                    style: TextStyle(fontSize: 40),
+                  ),
+                ),
+              );
+            }),
       ],
     );
   }
