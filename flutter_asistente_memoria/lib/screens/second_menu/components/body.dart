@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'button_grid.dart';
-import 'next_menu_button.dart';
+import 'previous_menu_button.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class Body extends StatelessWidget {
           children: [
             ButtonGrid(),
             SizedBox(height: 20),
-            NextMenuButton(),
+            PreviousMenuButton(),
           ],
         ),
       ),
