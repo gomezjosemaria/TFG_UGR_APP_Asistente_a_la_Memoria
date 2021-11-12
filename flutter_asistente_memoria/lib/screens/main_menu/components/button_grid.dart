@@ -3,6 +3,7 @@ import 'package:flutter_asistente_memoria/screens/alarms/alarms.dart';
 import 'package:flutter_asistente_memoria/screens/appointments/appointments.dart';
 import 'package:flutter_asistente_memoria/screens/main_menu/components/menu_button.dart';
 import 'package:flutter_asistente_memoria/screens/medication/medication.dart';
+import 'package:flutter_asistente_memoria/screens/notes/notes.dart';
 import 'package:flutter_asistente_memoria/screens/planner/planner.dart';
 import 'package:flutter_asistente_memoria/screens/profile/profile.dart';
 
@@ -48,6 +49,13 @@ class ButtonGrid extends StatelessWidget {
           icon: Icons.view_agenda,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Planner()));
+          },
+        ),
+        MenuButton(
+          title: 'Notas',
+          icon: Icons.notes,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Notes()));
           },
         ),
       ],
