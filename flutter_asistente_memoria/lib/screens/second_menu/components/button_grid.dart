@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_asistente_memoria/screens/activities/activities.dart';
 import 'package:flutter_asistente_memoria/screens/main_menu/components/menu_button.dart';
 
 
@@ -15,7 +16,7 @@ class ButtonGrid extends StatelessWidget {
           title: 'Actividades',
           icon: Icons.format_color_text,
           onPressed: () {
-            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Activities()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Activities()));
           },
         ),
         MenuButton(
