@@ -18,7 +18,8 @@ class MenuButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Column(
-          children: [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             SizedBox(
               height: 5,
             ),

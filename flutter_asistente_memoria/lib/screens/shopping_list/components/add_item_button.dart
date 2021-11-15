@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_asistente_memoria/screens/add_alarm/add_alarm.dart';
+import 'package:flutter_asistente_memoria/screens/add_item/add_item.dart';
 
-class AddAlarmButton extends StatelessWidget {
+class AddItemButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -12,9 +12,9 @@ class AddAlarmButton extends StatelessWidget {
           shape: StadiumBorder(),
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddAlarm()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddItem()));
         },
-        child: Text("Añadir Alarma", style: TextStyle(fontSize: 25)),
+        child: Text("Añadir Producto"),
       ),
     );
   }

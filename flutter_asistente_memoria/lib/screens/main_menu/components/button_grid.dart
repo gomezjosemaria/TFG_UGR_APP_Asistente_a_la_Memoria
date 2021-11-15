@@ -32,28 +32,28 @@ class ButtonGrid extends StatelessWidget {
         ),
         MenuButton(
           title: 'Medicación',
-          icon: Icons.mediation,
+          icon: Icons.healing,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Medication()));
           },
         ),
         MenuButton(
           title: 'Cita Médica',
-          icon: Icons.fastfood,
+          icon: Icons.local_hospital,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Appointments()));
           },
         ),
         MenuButton(
           title: 'Agenda',
-          icon: Icons.view_agenda,
+          icon: Icons.today,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Planner()));
           },
         ),
         MenuButton(
           title: 'Notas',
-          icon: Icons.notes,
+          icon: Icons.sticky_note_2,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Notes()));
           },
