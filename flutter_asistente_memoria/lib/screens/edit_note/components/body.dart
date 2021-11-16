@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
             EditNoteForm(noteModel: noteModel),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeleteNoteButton(noteModel: noteModel),
           ],

@@ -28,18 +28,42 @@ class ItemList extends StatelessWidget {
 
           return Column(
             children: [
-              Text("Lista de la Compra"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Lista de la Compra", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: shoppingList,
               ),
-              Text("Carrito"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Carrito", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: cartList,
               ),
             ],
           );
         } else {
-          return Text('Cargando lista de la compra');
+          return Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text('Cargando lista de la compra...', style: TextStyle(fontSize: 25)),
+            ],
+          );
         }
       },
     );

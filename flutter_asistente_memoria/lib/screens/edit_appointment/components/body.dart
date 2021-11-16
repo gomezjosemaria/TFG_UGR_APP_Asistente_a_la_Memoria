@@ -22,12 +22,12 @@ class Body extends StatelessWidget {
             EditAppointmentForm(appointmentModel: appointmentModel, activated: activated,),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeleteAppointmentButton(appointmentModel: appointmentModel, activated: activated),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeactivateAppointmentButton(appointmentModel: appointmentModel, activated: activated),
           ],

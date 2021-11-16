@@ -12,6 +12,7 @@ class AddActivityStepInput extends StatelessWidget {
           child: Text(
             'Indicaciones',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -46,6 +47,7 @@ class AddActivityStepInput extends StatelessWidget {
             keyboardType: TextInputType.multiline,
             minLines: 10,
             maxLines: 10,
+            style: TextStyle(fontSize: 20)
           );
         }),
       ],

@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
             EditItemForm(itemModel: itemModel),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeleteItemButton(itemModel: itemModel),
           ],

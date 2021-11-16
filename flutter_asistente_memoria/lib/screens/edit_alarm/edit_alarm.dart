@@ -16,7 +16,7 @@ class EditAlarm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Alarma'),
+        title: Text('Editar Alarma', style: TextStyle(fontSize: 25)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),

@@ -26,8 +26,13 @@ class Body extends StatelessWidget {
           return ChooseRole();
         }
         else if (Authentication.getUserRole() == UserRole.caregiver) {
-          if (Authentication.getUserBond() != '') {
+          print("soy cuidador vinculado?");
+          if (Authentication.getUserBond() == 'null') {
+            print("no");
             return BondCareReceiver();
+          }
+          else {
+            print("sii");
           }
         }
         return MainMenu();

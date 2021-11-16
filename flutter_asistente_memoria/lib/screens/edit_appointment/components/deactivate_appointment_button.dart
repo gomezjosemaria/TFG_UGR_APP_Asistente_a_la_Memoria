@@ -36,7 +36,7 @@ class DeactivateAppointmentButton extends StatelessWidget {
             child: state is EditAppointmentDeactivatingState
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : activated ? Text("Desactivar") : Text("Activar"),
+                : activated ? Text("Desactivar", style: TextStyle(fontSize: 25)) : Text("Activar", style: TextStyle(fontSize: 25)),
           ),
         );
       },

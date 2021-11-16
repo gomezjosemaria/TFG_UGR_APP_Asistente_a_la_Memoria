@@ -36,7 +36,7 @@ class DeleteAppointmentButton extends StatelessWidget {
             child: state is EditAppointmentDeletingState
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Eliminar Cita"),
+                : Text("Eliminar", style: TextStyle(fontSize: 25)),
           ),
         );
       },

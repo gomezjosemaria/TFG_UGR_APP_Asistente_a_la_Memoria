@@ -15,7 +15,7 @@ class AddActivityNavigationStep extends StatelessWidget {
     if (next) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Añadir Actividad'),
+          title: Text('Añadir Actividad', style: TextStyle(fontSize: 25)),
         ),
         body: SingleChildScrollView(
           child: Padding(

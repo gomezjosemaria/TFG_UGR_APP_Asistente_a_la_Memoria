@@ -42,7 +42,7 @@ class EditMedicationForm extends StatelessWidget {
         _MedicationFrequencyNumber(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         _EditMedicationButton(medicationModel: medicationModel, activated: activated,)
       ],
@@ -58,8 +58,9 @@ class _MedicationDateInput extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Fecha',
+            'Fecha de Inicio',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -128,6 +129,7 @@ class _MedicationFrequencyNumber extends StatelessWidget {
                   child: Text(
                     text,
                     textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 25),
                   ),
                 ),
                 SizedBox(
@@ -159,6 +161,7 @@ class _MedicationFrequencyNumber extends StatelessWidget {
                   child: Text(
                     'Días de la semana',
                     textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 25),
                   ),
                 ),
                 SizedBox(
@@ -198,6 +201,7 @@ class _MedicationFrequency extends StatelessWidget {
           child: Text(
             'Frecuencia',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -262,7 +266,7 @@ class _EditMedicationButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar"),
+                : Text("Guardar Cambios", style: TextStyle(fontSize: 25),),
           ),
         );
       },
@@ -280,6 +284,7 @@ class _MedicationTimeInput extends StatelessWidget {
           child: Text(
             'Hora',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -332,8 +337,9 @@ class _MedicationNameInput extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Título',
+            'Nombre',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -358,10 +364,11 @@ class _MedicationNameInput extends StatelessWidget {
                   border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
                   prefixIcon: Icon(
-                    Icons.email,
+                    Icons.healing,
                   ),
-                  hintText: "Introduce el nombre del Medicamento",
+                  hintText: "Introduce el nombre del medicamento",
                 ),
+                style: TextStyle(fontSize: 20),
               );
             }),
       ],

@@ -14,7 +14,7 @@ class AddNoteButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddNote()));
         },
-        child: Text("Añadir Nota"),
+        child: Text("Añadir Nota", style: TextStyle(fontSize: 25)),
       ),
     );
   }

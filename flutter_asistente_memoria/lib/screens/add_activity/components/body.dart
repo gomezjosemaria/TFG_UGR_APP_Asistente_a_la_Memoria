@@ -14,7 +14,7 @@ class Body extends StatelessWidget {
             AddActivityForm(),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             NextStepButton(),
           ],

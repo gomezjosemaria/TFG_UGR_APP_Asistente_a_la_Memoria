@@ -9,7 +9,7 @@ class Planner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Medicación'),
+        title: Text('Agenda', style: TextStyle(fontSize: 25)),
       ),
       body: SingleChildScrollView(
         child: Padding(

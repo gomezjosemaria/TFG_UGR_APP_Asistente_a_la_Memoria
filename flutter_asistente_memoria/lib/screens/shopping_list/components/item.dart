@@ -45,15 +45,20 @@ class Item extends StatelessWidget {
                               builder: (context) =>
                                   EditItem(itemModel: itemModel)));
                         },
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(itemModel.name),
-                        ],
-                      ),
-                    ],
+                  child: Container(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          height: 15.0,
+                        ),
+                        Text(itemModel.name, style: TextStyle(fontSize: 25)),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 10.0,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

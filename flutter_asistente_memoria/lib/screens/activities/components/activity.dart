@@ -27,7 +27,15 @@ class Activity extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Text(activityModel.tittle),
+                SizedBox(
+                  width: double.infinity,
+                  height: 10.0,
+                ),
+                Text(activityModel.tittle, style: TextStyle(fontSize: 25)),
+                SizedBox(
+                  width: double.infinity,
+                  height: 10.0,
+                ),
               ],
             ),
           ),

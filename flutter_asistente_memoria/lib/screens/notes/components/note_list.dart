@@ -21,14 +21,30 @@ class NoteList extends StatelessWidget {
 
           return Column(
             children: [
-              Text("Notas"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Notas", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: list,
               ),
             ],
           );
         } else {
-          return Text('Cargando notas');
+          return Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text('Cargando notas...', style: TextStyle(fontSize: 25)),
+            ],
+          );
         }
       },
     );

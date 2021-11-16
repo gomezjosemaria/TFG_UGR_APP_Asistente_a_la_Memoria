@@ -31,7 +31,7 @@ class EditAppointmentForm extends StatelessWidget {
         _AppointmentTimeInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         _EditAppointmentButton(appointmentModel: appointmentModel, activated: activated,),
       ],
@@ -49,6 +49,7 @@ class _AppointmentPlaceInput extends StatelessWidget {
           child: Text(
             'Lugar',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -78,6 +79,7 @@ class _AppointmentPlaceInput extends StatelessWidget {
                   ),
                   hintText: "Introduce el lugar de la cita",
                 ),
+                style: TextStyle(fontSize: 20),
               );
             }),
       ],
@@ -95,6 +97,7 @@ class _AppointmentDateInput extends StatelessWidget {
           child: Text(
             'Fecha',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -146,6 +149,7 @@ class _AppointmentTimeInput extends StatelessWidget {
           child: Text(
             'Hora',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -218,7 +222,7 @@ class _EditAppointmentButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar cambios"),
+                : Text("Guardar Cambios", style: TextStyle(fontSize: 25),),
           ),
         );
       },

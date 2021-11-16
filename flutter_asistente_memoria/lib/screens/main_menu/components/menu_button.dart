@@ -20,16 +20,14 @@ class MenuButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 5,
-            ),
             Icon(
               icon,
-              size: 120,
+              size: MediaQuery.of(context).size.width * 0.25,
             ),
             Text(
               title,
-              textScaleFactor: 2,
+              style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

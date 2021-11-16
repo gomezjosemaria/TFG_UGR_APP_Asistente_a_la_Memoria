@@ -37,14 +37,18 @@ class PlannerList extends StatelessWidget {
             });
             return Column(
               children: [
-                Text("Agenda de Hoy"),
+                Text("Agenda de Hoy", style: TextStyle(fontSize: 25)),
+                SizedBox(
+                  width: double.infinity,
+                  height: 10.0,
+                ),
                 Column(
                   children: widgets,
                 ),
               ],
             );
           } else {
-            return Text('Cargando medicación');
+            return Text('Cargando agenda...', style: TextStyle(fontSize: 25));
           }
         },
     );

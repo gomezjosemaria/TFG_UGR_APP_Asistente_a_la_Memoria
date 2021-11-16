@@ -7,11 +7,17 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => LoginBloc(),
-          child: Body(),
+      body: Semantics(
+        explicitChildNodes: true,
+        container: true,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: BlocProvider(
+              create: (context) => LoginBloc(),
+              child: Body(),
+            ),
+          ),
         ),
       ),
     );

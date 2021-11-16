@@ -9,7 +9,7 @@ class AddItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Producto'),
+        title: Text('Añadir Producto', style: TextStyle(fontSize: 25)),
       ),
       body: SingleChildScrollView(
         child: Padding(

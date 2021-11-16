@@ -20,14 +20,25 @@ class Alarm extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(alarmModel.time),
-                  Switch(value: activated, onChanged: null),
+                  Text(alarmModel.tittle, style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                    width: 1,
+                    height: 1,
+                  ),
                 ],
               ),
-              Text(alarmModel.tittle),
+              Text(alarmModel.time, style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
             ],
           ),
         ),

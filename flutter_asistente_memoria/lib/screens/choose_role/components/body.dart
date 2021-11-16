@@ -13,8 +13,38 @@ class Body extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            Text('Elige con que rol quieres registrate:'),
+            SizedBox(
+              width: double.infinity,
+              height: 20.0,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('Hola ' + Authentication.getCurrentUser().name + ',', style: TextStyle(fontSize: 23)),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 20.0,
+            ),
+            Text('Para usar la aplicación es necesario seleccionar el rol de usuario.', style: TextStyle(fontSize: 23)),
+            SizedBox(
+              width: double.infinity,
+              height: 20.0,
+            ),
+            Text('Selecciona el rol de Persona si quieres recibir notificaciones y recordatorios de la aplicación:', style: TextStyle(fontSize: 23)),
+            SizedBox(
+              width: double.infinity,
+              height: 20.0,
+            ),
             _CareReceiverRoleButton(),
+            SizedBox(
+              width: double.infinity,
+              height: 200.0,
+            ),
+            Text('Selecciona el rol de Cuidador si quieres vincularte a un usuario con el rol de Persona para añadirle alarmas y recordatorios pero tú no los recibirás:', style: TextStyle(fontSize: 23)),
+            SizedBox(
+              width: double.infinity,
+              height: 20.0,
+            ),
             _CaregiverRoleButton(),
           ],
         ),
@@ -52,7 +82,7 @@ class _CaregiverRoleButton extends StatelessWidget {
             onPressed: state.status == ChooseRoleStatus.caregiverSelectionProgress || state.status == ChooseRoleStatus.careReceiverSelectionProgress ? null : () {
               context.read<ChooseRoleBloc>().add(ChooseRoleCaregiver());
             },
-            child: Text("Cuidador"),
+            child: Text("Cuidador", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -68,7 +98,7 @@ class _CareReceiverRoleButton extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           width: double.infinity,
-          height: 60.0,
+          height: 120.0,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: StadiumBorder(),
@@ -76,7 +106,7 @@ class _CareReceiverRoleButton extends StatelessWidget {
             onPressed: state.status == ChooseRoleStatus.caregiverSelectionProgress || state.status == ChooseRoleStatus.careReceiverSelectionProgress ? null : () {
               context.read<ChooseRoleBloc>().add(ChooseRoleCareReceiver());
             },
-            child: Text("Cliente"),
+            child: Text("Persona", style: TextStyle(fontSize: 50)),
           ),
         );
       },

@@ -23,14 +23,22 @@ class ActivitiesList extends StatelessWidget {
 
           return Column(
             children: [
-              Text("Actividades"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Actividades", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: list,
               ),
             ],
           );
         } else {
-          return Text('Cargando actividades');
+          return Text('Cargando actividades...', style: TextStyle(fontSize: 25));
         }
       },
     );

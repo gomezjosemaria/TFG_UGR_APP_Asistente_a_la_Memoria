@@ -22,12 +22,12 @@ class Body extends StatelessWidget {
             EditMedicationForm(medicationModel: medicationModel, activated: activated,),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeleteMedicationButton(medicationModel: medicationModel, activated: activated),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeactivateMedicationButton(medicationModel: medicationModel, activated: activated),
           ],

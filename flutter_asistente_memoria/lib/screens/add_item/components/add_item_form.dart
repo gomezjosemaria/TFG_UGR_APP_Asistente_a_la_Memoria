@@ -13,7 +13,7 @@ class AddItemForm extends StatelessWidget {
         _AddItemNameInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         _AddItemButton(),
       ],
@@ -31,6 +31,7 @@ class _AddItemNameInput extends StatelessWidget {
           child: Text(
             'Producto',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -44,13 +45,14 @@ class _AddItemNameInput extends StatelessWidget {
                 onChanged: (textInput) => context.read<AddItemBloc>().add(AddItemNameChanged(textInput)),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25)
+                      borderRadius: BorderRadius.circular(100)
+                  ),
+                  prefixIcon: Icon(
+                    Icons.shopping_cart,
                   ),
                   hintText: "Introduce el nombre del producto",
                 ),
-                keyboardType: TextInputType.multiline,
-                minLines: 10,
-                maxLines: 10,
+                style: TextStyle(fontSize: 20)
               );
             }
         ),
@@ -89,7 +91,7 @@ class _AddItemButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar"),
+                : Text("Guardar", style: TextStyle(fontSize: 25)),
           ),
         );
       },

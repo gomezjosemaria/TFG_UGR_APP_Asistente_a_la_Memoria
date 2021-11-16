@@ -27,18 +27,42 @@ class MedicationList extends StatelessWidget {
 
           return Column(
             children: [
-              Text("Activa"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Activa", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: listActivated,
               ),
-              Text("Desactivada"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Desactivada", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: listDeactivated,
               ),
             ],
           );
         } else {
-          return Text('Cargando medicación');
+          return Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text('Cargando medicación...', style: TextStyle(fontSize: 25)),
+            ],
+          );
         }
       },
     );

@@ -12,11 +12,11 @@ class LoginForm extends StatelessWidget {
       children: [
         _EmailInput(),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         _PasswordInput(),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         _LoginButton(),
       ],
@@ -34,6 +34,7 @@ class _EmailInput extends StatelessWidget {
           child: Text(
             "Email",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -53,8 +54,10 @@ class _EmailInput extends StatelessWidget {
                   Icons.email,
                 ),
                 hintText: "Introduce tu Email",
+                hintStyle: TextStyle(color: Color(0xff646464)),
                 errorText: state.emailInput.invalid || state.formzStatus.isInvalid && state.emailInput.pure ? "Email no válido" : null,
               ),
+              style: TextStyle(fontSize: 20)
             );
           },
         ),
@@ -87,6 +90,7 @@ class _PasswordInputState extends State<_PasswordInput>{
           child: Text(
             "Contraseña",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -113,6 +117,7 @@ class _PasswordInputState extends State<_PasswordInput>{
                 hintText: "Introduce tu Contraseña",
                 errorText: state.passwordInput.invalid || state.formzStatus.isInvalid && state.passwordInput.pure ? "Contraseña no válida" : null,
               ),
+              style: TextStyle(fontSize: 20)
             );
           },
         ),
@@ -142,7 +147,7 @@ class _LoginButton extends StatelessWidget {
             onPressed: state.formzStatus.isSubmissionInProgress ? null : () {
               context.read<LoginBloc>().add(const LoginSubmitted());
             },
-            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Iniciar Sesión"),
+            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Iniciar Sesión", style: TextStyle(fontSize: 25)),
           ),
         );
       },

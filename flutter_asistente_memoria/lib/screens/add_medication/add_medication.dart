@@ -9,7 +9,7 @@ class AddMedication extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Medicación'),
+        title: Text('Añadir Medicación', style: TextStyle(fontSize: 25)),
       ),
       body: SingleChildScrollView(
         child: Padding(

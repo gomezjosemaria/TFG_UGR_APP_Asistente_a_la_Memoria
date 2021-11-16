@@ -21,14 +21,15 @@ class MedicationItem extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(medicationModel.time),
-                  Switch(value: activated, onChanged: null),
-                ],
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
               ),
-              Text(medicationModel.name),
+              Text(medicationModel.name, style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
             ],
           ),
         ),

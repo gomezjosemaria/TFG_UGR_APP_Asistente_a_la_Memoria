@@ -8,7 +8,7 @@ class Notes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notas'),
+        title: Text('Notas', style: TextStyle(fontSize: 25)),
       ),
       body: SingleChildScrollView(
         child: Padding(

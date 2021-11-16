@@ -72,7 +72,7 @@ class _EditAlarmButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar cambios"),
+                : Text("Guardar cambios", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -95,6 +95,7 @@ class _EditAlarmRepeat extends StatelessWidget {
                     child: Text(
                       'Repetir',
                       textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 25),
                     ),
                   ),
                   Checkbox(
@@ -134,6 +135,7 @@ class _EditAlarmTimeInput extends StatelessWidget {
           child: Text(
             'Hora',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -180,6 +182,7 @@ class _EditAlarmTitleInput extends StatelessWidget {
           child: Text(
             'Título',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -203,11 +206,11 @@ class _EditAlarmTitleInput extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100)
                   ),
                   prefixIcon: Icon(
-                    Icons.email,
+                    Icons.alarm,
                   ),
-                  hintText: "Introduce un título para la Alarma",
-
+                  hintText: "Introduce un título para la alarma",
                 ),
+                style: TextStyle(fontSize: 20.0),
               );
             }
         ),

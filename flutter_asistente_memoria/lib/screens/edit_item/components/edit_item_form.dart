@@ -19,7 +19,7 @@ class EditItemForm extends StatelessWidget {
         _EditItemNameInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         _EditItemButton(itemModel: itemModel),
       ],
@@ -58,7 +58,7 @@ class _EditItemButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar cambios"),
+                : Text("Guardar Cambios", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -74,8 +74,9 @@ class _EditItemNameInput extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Nota',
+            'Producto',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -96,13 +97,14 @@ class _EditItemNameInput extends StatelessWidget {
                 controller: new TextEditingController.fromValue(new TextEditingValue(text: state.nameInput.value, selection: new TextSelection.collapsed(offset: state.nameInput.value.length))),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25)
+                      borderRadius: BorderRadius.circular(100)
                   ),
-                  hintText: "Redacta la nota aquí",
+                  prefixIcon: Icon(
+                    Icons.shopping_cart,
+                  ),
+                  hintText: "Introduce el nombre del producto",
                 ),
-                keyboardType: TextInputType.multiline,
-                minLines: 10,
-                maxLines: 10,
+                style: TextStyle(fontSize: 20)
               );
             }
         ),

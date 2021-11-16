@@ -37,7 +37,7 @@ class DeleteAlarmButton extends StatelessWidget {
             child: state is EditAlarmDeletingState
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Eliminar Alarma"),
+                : Text("Eliminar Alarma", style: TextStyle(fontSize: 25)),
           ),
         );
       },

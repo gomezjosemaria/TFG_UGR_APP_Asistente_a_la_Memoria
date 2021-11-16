@@ -7,6 +7,9 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Iniciar Sesión', style: TextStyle(fontSize: 25)),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: BlocProvider(

@@ -24,7 +24,7 @@ class EditNextStepButton extends StatelessWidget {
                         value: BlocProvider.of<AddActivityBloc>(context),
                         child: EditActivityLastStep())));
               },
-              child: Text('Añadir Indicaciones'),
+              child: Text('Añadir Indicaciones', style: TextStyle(fontSize: 25)),
             ),
           );
         } else if (state.stepInd + 1 == state.steps.length) {
@@ -63,9 +63,15 @@ class EditNextStepButton extends StatelessWidget {
                           next: true,
                         ))));
               },
-              child: Icon(
-                Icons.arrow_right,
-                size: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Siguiente Indicación', style: TextStyle(fontSize: 25)),
+                  Icon(
+                    Icons.arrow_right,
+                    size: 50,
+                  ),
+                ],
               ),
             ),
           );

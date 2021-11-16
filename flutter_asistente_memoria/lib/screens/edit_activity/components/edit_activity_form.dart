@@ -18,7 +18,7 @@ class EditActivityForm extends StatelessWidget {
         AddActivityStepInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         EditActivityButton(),
       ],
@@ -36,6 +36,7 @@ class _ActivityTitleInput extends StatelessWidget {
           child: Text(
             'Título',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -65,10 +66,11 @@ class _ActivityTitleInput extends StatelessWidget {
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
               prefixIcon: Icon(
-                Icons.email,
+                Icons.directions_run,
               ),
-              hintText: "Introduce un título para la Alarma",
+              hintText: "Introduce un título para la actividad",
             ),
+            style: TextStyle(fontSize: 20)
           );
         }),
       ],

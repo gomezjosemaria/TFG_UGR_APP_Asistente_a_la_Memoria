@@ -14,7 +14,7 @@ class RegistrerButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
         },
-        child: Text("Regístrate")
+        child: Text("Regístrate", style: TextStyle(fontSize: 25))
       ),
     );
   }

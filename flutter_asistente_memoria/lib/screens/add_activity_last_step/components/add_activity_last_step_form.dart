@@ -13,7 +13,7 @@ class AddActivityLastStepForm extends StatelessWidget {
         AddActivityStepInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         _AddActivityButton(),
       ],
@@ -51,7 +51,7 @@ class _AddActivityButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar"),
+                : Text("Guardar", style: TextStyle(fontSize: 25)),
           ),
         );
       },

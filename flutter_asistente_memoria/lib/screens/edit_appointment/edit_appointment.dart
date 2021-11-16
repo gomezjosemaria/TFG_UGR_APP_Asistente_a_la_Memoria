@@ -16,7 +16,7 @@ class EditAppointment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Appointmenta'),
+        title: Text('Editar Cita', style: TextStyle(fontSize: 25)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),

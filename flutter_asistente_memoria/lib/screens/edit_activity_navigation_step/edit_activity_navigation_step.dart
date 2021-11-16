@@ -15,7 +15,7 @@ class EditActivityNavigationStep extends StatelessWidget {
     if (next) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Editar Actividad'),
+          title: Text('Editar Actividad', style: TextStyle(fontSize: 25)),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -31,7 +31,7 @@ class EditActivityNavigationStep extends StatelessWidget {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Editar Actividad'),
+          title: Text('Editar Actividad', style: TextStyle(fontSize: 25)),
         ),
         body: SingleChildScrollView(
           child: Padding(

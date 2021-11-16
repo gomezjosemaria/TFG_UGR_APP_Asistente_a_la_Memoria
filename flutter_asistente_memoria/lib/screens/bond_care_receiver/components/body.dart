@@ -14,33 +14,25 @@ class Body extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Bienvenido ' + Authentication.getCurrentUser().name + ','),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Al registrarse como Cuidador es necesario vincular su cuenta con un Cliente:'),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _CareReceiverEmailInput(),
-            SizedBox(
-              height: 10,
-            ),
-            _CareReceiverCodeInput(),
             SizedBox(
               height: 20,
             ),
-            _BondButton(),
-            SizedBox(
-              height: 60,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('Al registrarse como Cuidador es necesario vincular su cuenta con una Pesona, para ello introduzca el Email y el Código de Vinculación de la Persona con la que desea vincularse:', style: TextStyle(fontSize: 25)),
             ),
-            LogOutButton(),
+            SizedBox(
+              height: 20,
+            ),
+            _CareReceiverEmailInput(),
+            SizedBox(
+              height: 20,
+            ),
+            _CareReceiverCodeInput(),
+            SizedBox(
+              height: 30,
+            ),
+            _BondButton(),
           ],
         ),
       ),
@@ -64,7 +56,7 @@ class _BondButton extends StatelessWidget {
             onPressed: state.status.isSubmissionInProgress ? null : () {
               context.read<BondCareReceiverBloc>().add(const BondCareReceiverSubmitted());
             },
-            child: state.status.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Vincular"),
+            child: state.status.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Vincular", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -80,8 +72,9 @@ class _CareReceiverCodeInput extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Código de vinculación del Cliente",
+            "Código de Vinculación de la Persona",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -98,10 +91,11 @@ class _CareReceiverCodeInput extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100)
                 ),
                 prefixIcon: Icon(
-                  Icons.email,
+                  Icons.vpn_key,
                 ),
-                hintText: "Introduce el código de vinculación",
+                hintText: "Introduce el Código de Vinculación",
               ),
+              style: TextStyle(fontSize: 20)
             );
           }
         ),
@@ -118,8 +112,9 @@ class _CareReceiverEmailInput extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Email del Cliente",
+            "Email de la Persona",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -138,8 +133,9 @@ class _CareReceiverEmailInput extends StatelessWidget {
                prefixIcon: Icon(
                  Icons.email,
                ),
-               hintText: "Introduce el Email del Cliente",
+               hintText: "Introduce el Email",
              ),
+             style: TextStyle(fontSize: 20)
            );
           }
         ),

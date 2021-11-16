@@ -5,9 +5,20 @@ class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Body(),
+      appBar: AppBar(
+        title: Center(
+          child: Text('Recuerda Me', style: TextStyle(fontSize: 25)),
+        ),
+        automaticallyImplyLeading: false,
+      ),
+      body: Semantics(
+        container: true,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: Body(),
+          ),
+        ),
       ),
     );
   }

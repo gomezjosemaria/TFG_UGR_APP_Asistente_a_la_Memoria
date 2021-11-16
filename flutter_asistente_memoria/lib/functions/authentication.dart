@@ -49,10 +49,8 @@ class Authentication {
     User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser != null) {
       try {
-        await firebaseUser.updateProfile(
-          displayName: name,
-        );
-        await _collectionReferenceUsers.doc(firebaseUser.email).update({
+        await firebaseUser.updateDisplayName(name);
+        await _collectionReferenceUsers.doc(firebaseUser.email).set({
           'name': name,
         });
       } on FirebaseException catch (e) {
@@ -71,6 +69,11 @@ class Authentication {
         if (role == UserRole.careReceiver) {
           await _collectionReferenceUsers.doc(firebaseUser.email).update({
             'bondCode': ToString.randomString(5),
+          });
+        }
+        else {
+          await _collectionReferenceUsers.doc(firebaseUser.email).update({
+            'bond': 'null',
           });
         }
       } on FirebaseException catch (e) {

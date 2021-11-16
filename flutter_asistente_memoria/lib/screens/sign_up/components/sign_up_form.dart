@@ -12,15 +12,15 @@ class SignUpForm extends StatelessWidget {
       children: [
         _NameInput(),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         _EmailInput(),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         _PasswordInput(),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         _SignUpButton(),
       ],
@@ -38,6 +38,7 @@ class _NameInput extends StatelessWidget {
           child: Text(
             "Nombre",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -59,6 +60,7 @@ class _NameInput extends StatelessWidget {
                 hintText: "Introduce tu Nombre",
                 errorText: state.nameInput.invalid || state.formzStatus.isInvalid && state.nameInput.pure ? "Nombre no válido" : null,
               ),
+              style: TextStyle(fontSize: 20)
             );
           },
         ),
@@ -77,6 +79,7 @@ class _EmailInput extends StatelessWidget {
           child: Text(
             "Email",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -98,6 +101,7 @@ class _EmailInput extends StatelessWidget {
                 hintText: "Introduce tu Email",
                 errorText: state.emailInput.invalid || state.formzStatus.isInvalid && state.emailInput.pure ? "Email no válido" : null,
               ),
+              style: TextStyle(fontSize: 20)
             );
           },
         ),
@@ -130,6 +134,7 @@ class _PasswordInputState extends State<_PasswordInput>{
           child: Text(
             "Contraseña",
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25)
           ),
         ),
         SizedBox(
@@ -156,6 +161,7 @@ class _PasswordInputState extends State<_PasswordInput>{
                 hintText: "Introduce tu Contraseña",
                 errorText: state.passwordInput.invalid || state.formzStatus.isInvalid && state.passwordInput.pure ? "Contraseña no válida" : null,
               ),
+              style: TextStyle(fontSize: 20)
             );
           },
         ),
@@ -186,7 +192,7 @@ class _SignUpButton extends StatelessWidget {
             onPressed: state.formzStatus.isSubmissionInProgress ? null : () {
               context.read<SignUpBloc>().add(const SignUpSubmitted());
             },
-            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Registrarse"),
+            child: state.formzStatus.isSubmissionInProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Registrarse", style: TextStyle(fontSize: 25)),
           ),
         );
       },

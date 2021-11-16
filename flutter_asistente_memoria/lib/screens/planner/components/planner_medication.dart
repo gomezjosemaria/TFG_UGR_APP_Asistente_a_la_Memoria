@@ -17,14 +17,25 @@ class PlannerMedication extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(medicationModel.time),
-                  Switch(value: activated, onChanged: null),
+                  Text(medicationModel.name, style: TextStyle(fontSize: 20)),
+                  Icon(
+                    Icons.healing,
+                    size: 25,
+                  ),
                 ],
               ),
-              Text(medicationModel.name),
+              Text(medicationModel.time, style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
             ],
           ),
         ),

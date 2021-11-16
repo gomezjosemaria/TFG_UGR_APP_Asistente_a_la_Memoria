@@ -35,7 +35,7 @@ class DeleteItemButton extends StatelessWidget {
             child: state is EditItemDeletingState
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Eliminar Producto"),
+                : Text("Eliminar", style: TextStyle(fontSize: 25)),
           ),
         );
       },

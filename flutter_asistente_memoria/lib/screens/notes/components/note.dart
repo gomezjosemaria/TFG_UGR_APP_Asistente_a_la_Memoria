@@ -20,14 +20,15 @@ class Note extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(noteModel.time),
-                  Switch(value: activated, onChanged: null),
-                ],
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
               ),
-              Text(noteModel.text),
+              Text(noteModel.text, style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
             ],
           ),
         ),

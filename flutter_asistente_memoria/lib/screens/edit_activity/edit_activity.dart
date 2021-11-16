@@ -9,7 +9,7 @@ class EditActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Actividad'),
+        title: Text('Editar Actividad', style: TextStyle(fontSize: 25)),
       ),
       body: SingleChildScrollView(
         child: Padding(

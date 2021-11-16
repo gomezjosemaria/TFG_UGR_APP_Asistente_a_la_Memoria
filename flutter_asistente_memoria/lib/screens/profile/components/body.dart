@@ -11,6 +11,9 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             ProfileInfo(),
+            SizedBox(
+              height: 25,
+            ),
             LogOutButton(),
           ],
         ),

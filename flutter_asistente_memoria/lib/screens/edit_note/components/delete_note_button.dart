@@ -36,7 +36,7 @@ class DeleteNoteButton extends StatelessWidget {
             child: state is EditNoteDeletingState
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Eliminar Nota"),
+                : Text("Eliminar", style: TextStyle(fontSize: 25)),
           ),
         );
       },

@@ -28,18 +28,42 @@ class AlarmList extends StatelessWidget {
 
           return Column(
             children: [
-              Text("Activas"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Activas", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: listActivated,
               ),
-              Text("Desactivadas"),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text("Desactivadas", style: TextStyle(fontSize: 25)),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Column(
                 children: listDeactivated,
               ),
             ],
           );
         } else {
-          return Text('Cargando alarmas');
+          return Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Text('Cargando alarmas...', style: TextStyle(fontSize: 25)),
+            ],
+          );
         }
       },
     );

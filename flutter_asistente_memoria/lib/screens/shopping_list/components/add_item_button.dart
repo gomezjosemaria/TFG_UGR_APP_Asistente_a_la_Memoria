@@ -14,7 +14,7 @@ class AddItemButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddItem()));
         },
-        child: Text("Añadir Producto"),
+        child: Text("Añadir Producto", style: TextStyle(fontSize: 25)),
       ),
     );
   }

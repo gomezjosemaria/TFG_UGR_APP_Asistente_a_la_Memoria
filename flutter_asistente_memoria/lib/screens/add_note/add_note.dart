@@ -9,7 +9,7 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Nota'),
+        title: Text('Añadir Nota', style: TextStyle(fontSize: 25)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
@@ -23,7 +23,7 @@ class AddNote extends StatelessWidget {
                   _NoteTextInput(),
                   SizedBox(
                     width: double.infinity,
-                    height: 10.0,
+                    height: 20.0,
                   ),
                   _AddNoteButton()
                 ],
@@ -63,7 +63,7 @@ class _AddNoteButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar"),
+                : Text("Guardar", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -81,6 +81,7 @@ class _NoteTextInput extends StatelessWidget {
           child: Text(
             'Nota',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -101,6 +102,7 @@ class _NoteTextInput extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 minLines: 10,
                 maxLines: 10,
+                style: TextStyle(fontSize: 20),
               );
             }
         ),

@@ -22,7 +22,7 @@ class AddActivityButton extends StatelessWidget {
                       child: AddActivity(),
                     )));
           },
-          child: Text("Añadir Actividad"),
+          child: Text("Añadir Actividad", style: TextStyle(fontSize: 25)),
         ),
       ),
     );

@@ -35,7 +35,7 @@ class EditActivityButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar Cambios"),
+                : Text("Guardar Cambios", style: TextStyle(fontSize: 25)),
           ),
         );
       },

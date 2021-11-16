@@ -19,7 +19,7 @@ class EditNoteForm extends StatelessWidget {
         _EditNoteTextInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         _EditNoteButton(noteModel: noteModel),
       ],
@@ -58,7 +58,7 @@ class _EditNoteButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar cambios"),
+                : Text("Guardar cambios", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -76,6 +76,7 @@ class _EditNoteTextInput extends StatelessWidget {
           child: Text(
             'Nota',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -103,6 +104,7 @@ class _EditNoteTextInput extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 minLines: 10,
                 maxLines: 10,
+                style: TextStyle(fontSize: 20),
               );
             }
         ),

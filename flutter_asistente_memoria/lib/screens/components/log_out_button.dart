@@ -19,7 +19,7 @@ class LogOutButton extends StatelessWidget {
             AuthenticationSingOut(),
           );
         },
-        child: Text("Cerrar Sesión"),
+        child: Text("Cerrar Sesión", style: TextStyle(fontSize: 25)),
       ),
     );
   }

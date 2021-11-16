@@ -11,6 +11,7 @@ class ButtonGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+      physics: ScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 2,
       crossAxisSpacing: 15,
@@ -38,7 +39,7 @@ class ButtonGrid extends StatelessWidget {
           },
         ),
         MenuButton(
-          title: 'Cita Médica',
+          title: 'Citas Médicas',
           icon: Icons.local_hospital,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Appointments()));

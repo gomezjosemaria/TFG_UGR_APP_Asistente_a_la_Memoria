@@ -11,7 +11,7 @@ class AddAlarm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Alarma'),
+        title: Text('Añadir Alarma', style: TextStyle(fontSize: 25)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
@@ -75,7 +75,7 @@ class _AddAlarmButton extends StatelessWidget {
             child: state.status.isSubmissionInProgress
                 ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                : Text("Guardar"),
+                : Text("Guardar", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -93,6 +93,7 @@ class _AlarmTitleInput extends StatelessWidget {
           child: Text(
             'Título',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -108,10 +109,11 @@ class _AlarmTitleInput extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100)
                 ),
                 prefixIcon: Icon(
-                  Icons.email,
+                  Icons.alarm,
                 ),
-                hintText: "Introduce un título para la Alarma",
+                hintText: "Introduce un título para la alarma",
               ),
+              style: TextStyle(fontSize: 20.0),
             );
           }
         ),
@@ -130,6 +132,7 @@ class _AlarmTimeInput extends StatelessWidget {
           child: Text(
             'Hora',
             textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25),
           ),
         ),
         SizedBox(
@@ -182,6 +185,7 @@ class _AlarmRepeat extends StatelessWidget {
                   child: Text(
                     'Repetir',
                     textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 25),
                   ),
                 ),
                 Checkbox(

@@ -24,9 +24,15 @@ class PreviousStepButton extends StatelessWidget {
                         value: BlocProvider.of<AddActivityBloc>(context),
                         child: AddActivity())));
               },
-              child: Icon(
-                Icons.arrow_left,
-                size: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.arrow_left,
+                    size: 50,
+                  ),
+                  Text('Anterior Indicación', style: TextStyle(fontSize: 25)),
+                ],
               ),
             ),
           );
@@ -46,9 +52,15 @@ class PreviousStepButton extends StatelessWidget {
                           next: false,
                         ))));
               },
-              child: Icon(
-                Icons.arrow_left,
-                size: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.arrow_left,
+                    size: 50,
+                  ),
+                  Text('Anterior Indicación', style: TextStyle(fontSize: 25)),
+                ],
               ),
             ),
           );

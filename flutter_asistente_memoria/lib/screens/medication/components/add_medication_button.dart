@@ -14,7 +14,7 @@ class AddMedicationButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddMedication()));
         },
-        child: Text("Añadir Medicación"),
+        child: Text("Añadir Medicación", style: TextStyle(fontSize: 25)),
       ),
     );
   }

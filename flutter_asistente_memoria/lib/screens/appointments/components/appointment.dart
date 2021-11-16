@@ -20,14 +20,39 @@ class Appointment extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(appointmentModel.date),
-                  Switch(value: activated, onChanged: null),
+                  Text(appointmentModel.place, style: TextStyle(fontSize: 20)),
+                  SizedBox(
+                    width: 1,
+                    height: 1,
+                  ),
                 ],
               ),
-              Text(appointmentModel.place),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(appointmentModel.date, style: TextStyle(fontSize: 25)),
+                  SizedBox(
+                    width: 20,
+                    height: 20,
+                  ),
+                  Text(appointmentModel.time, style: TextStyle(fontSize: 25)),
+                ],
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 10.0,
+              ),
             ],
           ),
         ),

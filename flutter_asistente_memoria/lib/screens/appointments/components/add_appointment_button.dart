@@ -14,7 +14,7 @@ class AddAppointmentButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddAppointment()));
         },
-        child: Text("Añadir cita"),
+        child: Text("Añadir Cita", style: TextStyle(fontSize: 25)),
       ),
     );
   }

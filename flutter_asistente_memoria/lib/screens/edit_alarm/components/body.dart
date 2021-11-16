@@ -21,12 +21,12 @@ class Body extends StatelessWidget {
             EditAlarmForm(alarmModel: alarmModel, activated: activated,),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeleteAlarmButton(alarmModel: alarmModel, activated: activated),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             DeactivateAlarmButton(alarmModel: alarmModel, activated: activated),
           ],

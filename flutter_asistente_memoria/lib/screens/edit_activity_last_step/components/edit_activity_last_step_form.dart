@@ -10,7 +10,7 @@ class EditActivityLastStepForm extends StatelessWidget {
         AddActivityStepInput(),
         SizedBox(
           width: double.infinity,
-          height: 10.0,
+          height: 20.0,
         ),
         EditActivityButton(),
       ],

@@ -15,12 +15,12 @@ class Body extends StatelessWidget {
             EditActivityLastStepForm(),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             EditPreviousStepButton(),
             SizedBox(
               width: double.infinity,
-              height: 10.0,
+              height: 20.0,
             ),
             EditNextStepButton(),
           ],

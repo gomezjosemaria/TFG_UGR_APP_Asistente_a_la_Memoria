@@ -5,6 +5,12 @@ class SecondMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Text('Recuerda Me', style: TextStyle(fontSize: 25)),
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Body(),
