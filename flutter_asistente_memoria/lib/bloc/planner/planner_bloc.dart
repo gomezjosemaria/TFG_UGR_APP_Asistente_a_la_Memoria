@@ -29,12 +29,10 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
           await PlannerManager.loadTodayAppointments(Authentication.getCurrentUserEmail());
           await PlannerManager.loadTodayMedication(Authentication.getCurrentUserEmail());
         }
-        print('GET IT');
         PlannerManager.getTodayMedication();
         PlannerManager.orderByTime();
         PlannerManager.setAlarms();
         yield state.copyWith(status: PlannerStatus.loadedSuccessfully);
-        print('DONE');
       } catch (e) {
         yield state.copyWith(status: PlannerStatus.error);
       }

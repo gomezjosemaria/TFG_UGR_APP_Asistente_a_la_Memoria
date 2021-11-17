@@ -109,7 +109,6 @@ class _MedicationFrequencyNumber extends StatelessWidget {
         buildWhen: (previous, current) =>
         previous.frequency != current.frequency || previous.frequencyNumber != current.frequencyNumber || previous.repeatWeekDays != current.repeatWeekDays,
         builder: (context, state) {
-          print(state);
           if (state.frequency == MedicationManager.getFrequencyOptions()[1] ||
               state.frequency == MedicationManager.getFrequencyOptions()[2]) {
             List<String> options = <String>[];

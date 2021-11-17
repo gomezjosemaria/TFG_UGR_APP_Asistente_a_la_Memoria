@@ -18,11 +18,13 @@ class EditAlarm extends StatelessWidget {
       appBar: AppBar(
         title: Text('Editar Alarma', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => EditAlarmBloc()..add(EditAlarmStarted(alarmModel, activated)),
-          child: Body(alarmModel: alarmModel, activated: activated,),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => EditAlarmBloc()..add(EditAlarmStarted(alarmModel, activated)),
+            child: Body(alarmModel: alarmModel, activated: activated,),
+          ),
         ),
       ),
     );

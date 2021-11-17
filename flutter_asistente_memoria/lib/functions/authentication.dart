@@ -160,6 +160,7 @@ class Authentication {
                 await _collectionReferenceUsers.doc(userEmail).update({
                   "bond": FieldValue.arrayUnion([firebaseUser.email]),
                 });
+                _userBond = userEmail;
               }
               else {
                 throw(FirebaseException);

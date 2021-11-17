@@ -33,7 +33,6 @@ class _AddActivityButton extends StatelessWidget {
     return BlocConsumer<AddActivityBloc, AddActivityState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        print(state);
         if (state.status.isSubmissionSuccess) {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => Activities()));

@@ -14,7 +14,6 @@ class DeleteItemButton extends StatelessWidget {
     return BlocConsumer<EditItemBloc, EditItemState>(
       listenWhen: (previous, current) => previous != current,
       listener: (context, state) {
-        print (state);
         if (state is EditItemDeleteSuccessState) {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => ShoppingList()));
         }

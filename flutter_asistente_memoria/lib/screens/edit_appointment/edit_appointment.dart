@@ -18,11 +18,13 @@ class EditAppointment extends StatelessWidget {
       appBar: AppBar(
         title: Text('Editar Cita', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => EditAppointmentBloc()..add(EditAppointmentStarted(appointmentModel, activated)),
-          child: Body(appointmentModel: appointmentModel, activated: activated,),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => EditAppointmentBloc()..add(EditAppointmentStarted(appointmentModel, activated)),
+            child: Body(appointmentModel: appointmentModel, activated: activated,),
+          ),
         ),
       ),
     );

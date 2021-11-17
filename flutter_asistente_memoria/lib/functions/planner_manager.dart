@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/functions/notification_service.dart';
 import 'package:flutter_asistente_memoria/functions/to_string.dart';
 import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 import 'package:flutter_asistente_memoria/model/appointments_model.dart';
 import 'package:flutter_asistente_memoria/model/medication_model.dart';
 import 'package:flutter_asistente_memoria/model/time_object_model.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
 import 'medication_manager.dart';
@@ -36,7 +38,6 @@ class PlannerManager {
 
   static bool isTodayWeekDaySelected(List<bool> weekDays) {
     var day = DateFormat('EEEE').format(DateTime.now());
-    print(day);
     var isToday = false;
     if (day == 'Monday' && weekDays[0]) {
       isToday = true;
@@ -56,7 +57,7 @@ class PlannerManager {
     return isToday;
   }
 
-  static loadTodayMedication(String userEmail) async {
+  static Future<void> loadTodayMedication(String userEmail) async {
     try {
       var collectionReferenceMedicationActive =
           _collectionReferenceMedication.doc(userEmail).collection('active');
@@ -96,7 +97,12 @@ class PlannerManager {
             medication.data()['frequencyNumber'],
             List<bool>.from(medication.data()['repeatWeekDays']),
           );
-          _medicationToday.add(medicationModel);
+          TimeOfDay timeOfDay = ToString.stringToTimeOfDay(medicationModel.time);
+          DateTime now = DateTime.now();
+          DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+          if (dateTime.isAfter(DateTime.now())) {
+            _medicationToday.add(medicationModel);
+          }
         }
       }
     } on FirebaseException catch (e) {
@@ -108,7 +114,7 @@ class PlannerManager {
     return _alarmsToday;
   }
 
-  static loadTodayAlarm(String userEmail) async {
+  static Future<void> loadTodayAlarm(String userEmail) async {
     try {
       var collectionReferenceAlarmsActive =
           _collectionReferenceAlarms.doc(userEmail).collection('active');
@@ -123,8 +129,8 @@ class PlannerManager {
           add = true;
         } else if (isTodayWeekDaySelected(
             List<bool>.from(alarm.data()['repeatWeekDays']))) {
-          print('repeat');
           add = true;
+
         }
         if (add) {
           var alarmModel = new AlarmModel(
@@ -142,7 +148,6 @@ class PlannerManager {
   }
 
   static List<MedicationModel> getTodayMedication() {
-    print("EMPIEZA" + _medicationToday.toString() + "ACABA");
     return _medicationToday;
   }
 
@@ -163,7 +168,12 @@ class PlannerManager {
             appointment.data()['date'].toString(),
             appointment.data()['time'].toString(),
           );
-          _appointmentsToday.add(appointmentModel);
+          TimeOfDay timeOfDay = ToString.stringToTimeOfDay(appointmentModel.time);
+          DateTime now = DateTime.now();
+          DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+          if (dateTime.isAfter(DateTime.now())) {
+            _appointmentsToday.add(appointmentModel);
+          }
         }
       }
     } on FirebaseException catch (e) {
@@ -203,50 +213,90 @@ class PlannerManager {
     return _orderByTime;
   }
 
-  static void setAlarms() {
+  static Future<void> loadAll() async {
+    final String userBond = Authentication.getUserBond();
+    await loadTodayMedication(userBond);
+    await loadTodayAppointments(userBond);
+    await loadTodayAlarm(userBond);
+    await setAlarms();
+    print ("Notifications");
+    List<ActiveNotification> listNotifications = <ActiveNotification>[];
+    listNotifications = await NotificationService.getNotifications();
+    listNotifications.toString();
+  }
+
+  static Future<void> setAlarms() async {
+    NotificationService.deleteAllNotifications();
+    print('START');
     for (int i = 0; i < _alarmsToday.length; i++) {
-      setAlarmNotification(_alarmsToday[i], i);
+      TimeOfDay timeOfDay = ToString.stringToTimeOfDay(_alarmsToday[i].time);
+      DateTime now = DateTime.now();
+      print('NOW' + now.toString());
+      DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      print(i.toString() + ' ' + _alarmsToday[i].toString());
+
+      if (dateTime.isAfter(DateTime.now())) {
+        await setAlarmNotification(_alarmsToday[i], i);
+        print('YES');
+      }
+      else {
+        print ('NO');
+      }
     }
     for (int i = 0; i < _medicationToday.length; i++) {
-      setMedicationNotification(_medicationToday[i], 100 + i);
+      TimeOfDay timeOfDay = ToString.stringToTimeOfDay(_medicationToday[i].time);
+      DateTime now = DateTime.now();
+      DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      if (dateTime.isAfter(DateTime.now())) {
+        await setMedicationNotification(_medicationToday[i], 100 + i);
+      }
     }
     for (int i = 0; i < _appointmentsToday.length; i++) {
-      setAppointmentNotification(_appointmentsToday[i], 200 + i);
+      TimeOfDay timeOfDay = ToString.stringToTimeOfDay(_appointmentsToday[i].time);
+      DateTime now = DateTime.now();
+      DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      if (dateTime.isAfter(DateTime.now())) {
+        await setAppointmentNotification(_appointmentsToday[i], 200 + i);
+      }
     }
   }
 
-  static void setAlarmNotification(AlarmModel alarmModel, int id) {
+  static Future<void> setAlarmNotification(AlarmModel alarmModel, int id) async {
     TimeOfDay timeOfDay = ToString.stringToTimeOfDay(alarmModel.time);
     DateTime now = DateTime.now();
     DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-    NotificationService.showScheduledNotification(id: id, title: alarmModel.tittle, scheduledDate: dateTime);
+    await NotificationService.showScheduledNotification(id: id, title: 'Alarma', body: alarmModel.tittle, scheduledDate: dateTime);
   }
 
-  static void setMedicationNotification(MedicationModel medicationModel, int id) {
+  static Future<void> setMedicationNotification(MedicationModel medicationModel, int id) async {
     TimeOfDay timeOfDay = ToString.stringToTimeOfDay(medicationModel.time);
     DateTime now = DateTime.now();
     DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-    NotificationService.showScheduledNotification(id: id, title: medicationModel.name, scheduledDate: dateTime);
+    await NotificationService.showScheduledNotification(id: id, title: 'Medication', body: medicationModel.name, scheduledDate: dateTime);
   }
 
-  static void setAppointmentNotification(AppointmentModel appointmentModel, int id) {
+  static Future<void> setAppointmentNotification(AppointmentModel appointmentModel, int id) async {
     TimeOfDay timeOfDay = ToString.stringToTimeOfDay(appointmentModel.time);
     DateTime now = DateTime.now();
     DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-    NotificationService.showScheduledNotification(id: id, title: appointmentModel.place, scheduledDate: dateTime);
+    await NotificationService.showScheduledNotification(id: id, title: 'Appointment', body: appointmentModel.place, scheduledDate: dateTime);
   }
 
   static List<TimeObject> orderByTimeTwoLists(
       List<TimeObject> first, List<TimeObject> second) {
     List<TimeObject> orderList = <TimeObject>[];
-    List<TimeOfDay> firstTime = <TimeOfDay>[];
-    List<TimeOfDay> secondTime = <TimeOfDay>[];
+    List<DateTime> firstTime = <DateTime>[];
+    List<DateTime> secondTime = <DateTime>[];
+    DateTime now = DateTime.now();
 
     for (int i = 0; i < first.length; i++) {
-      firstTime.add(ToString.stringToTimeOfDay(first[i].time));
+      TimeOfDay timeOfDay = ToString.stringToTimeOfDay(first[i].time);
+      DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      firstTime.add(dateTime);
     }
 
     for (int i = 0; i < second.length; i++) {
+      TimeOfDay timeOfDay = ToString.stringToTimeOfDay(second[i].time);
       DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
       firstTime.add(dateTime);
     }
@@ -288,7 +338,7 @@ class PlannerManager {
       if (firstTime[firstIndex].hour < secondTime[secondIndex].hour) {
         orderList.add(first[firstIndex]);
         if (firstIndex == first.length - 1) {
-          firstTime[firstIndex] = new TimeOfDay(hour: 23, minute: 59);
+          firstTime[firstIndex] = DateTime(now.year, now.month, now.day, 23, 59);
         } else {
           firstIndex++;
         }
@@ -296,14 +346,14 @@ class PlannerManager {
         if (firstTime[firstIndex].minute < secondTime[secondIndex].minute) {
           orderList.add(first[firstIndex]);
           if (firstIndex == first.length - 1) {
-            firstTime[firstIndex] = new TimeOfDay(hour: 23, minute: 59);
+            firstTime[firstIndex] = DateTime(now.year, now.month, now.day, 23, 59);
           } else {
             firstIndex++;
           }
         } else {
           orderList.add(second[secondIndex]);
           if (secondIndex == second.length - 1) {
-            secondTime[secondIndex] = new TimeOfDay(hour: 23, minute: 59);
+            secondTime[secondIndex] = DateTime(now.year, now.month, now.day, 23, 59);
           } else {
             secondIndex++;
           }
@@ -311,7 +361,7 @@ class PlannerManager {
       } else {
         orderList.add(second[secondIndex]);
         if (secondIndex == second.length - 1) {
-          secondTime[secondIndex] = new TimeOfDay(hour: 23, minute: 59);
+          secondTime[secondIndex] = DateTime(now.year, now.month, now.day, 23, 59);
         } else {
           secondIndex++;
         }

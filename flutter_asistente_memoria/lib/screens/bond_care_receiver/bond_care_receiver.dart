@@ -13,11 +13,13 @@ class BondCareReceiver extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => BondCareReceiverBloc(),
-          child: Body(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => BondCareReceiverBloc(),
+            child: Body(),
+          ),
         ),
       ),
     );

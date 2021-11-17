@@ -18,11 +18,13 @@ class EditMedication extends StatelessWidget {
       appBar: AppBar(
         title: Text('Editar Medicación', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => EditMedicationBloc()..add(EditMedicationStarted(medicationModel, activated)),
-          child: Body(medicationModel: medicationModel, activated: activated,),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => EditMedicationBloc()..add(EditMedicationStarted(medicationModel, activated)),
+            child: Body(medicationModel: medicationModel, activated: activated,),
+          ),
         ),
       ),
     );

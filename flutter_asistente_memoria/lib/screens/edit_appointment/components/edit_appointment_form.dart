@@ -57,7 +57,6 @@ class _AppointmentPlaceInput extends StatelessWidget {
         ),
         BlocBuilder<EditAppointmentBloc, EditAppointmentState>(
             builder: (context, state) {
-              print(state.placeInput.value);
               TextEditingController _controller = TextEditingController();
               _controller.value = TextEditingValue(text: state.placeInput.value);
               var cursorPos = _controller.selection;

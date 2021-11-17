@@ -13,32 +13,34 @@ class AddAlarm extends StatelessWidget {
       appBar: AppBar(
         title: Text('Añadir Alarma', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => AddAlarmBloc(),
-          child: Align(
-            alignment: Alignment.center,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  _AlarmTitleInput(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 10.0,
-                  ),
-                  _AlarmTimeInput(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 10.0,
-                  ),
-                  _AlarmRepeat(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 10.0,
-                  ),
-                  _AddAlarmButton()
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => AddAlarmBloc(),
+            child: Align(
+              alignment: Alignment.center,
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    _AlarmTitleInput(),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 10.0,
+                    ),
+                    _AlarmTimeInput(),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 10.0,
+                    ),
+                    _AlarmRepeat(),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 10.0,
+                    ),
+                    _AddAlarmButton()
+                  ],
+                ),
               ),
             ),
           ),

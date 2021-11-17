@@ -17,11 +17,13 @@ class EditNote extends StatelessWidget {
       appBar: AppBar(
         title: Text('Editar Nota', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => EditNoteBloc()..add(EditNoteStarted(noteModel)),
-          child: Body(noteModel: noteModel),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => EditNoteBloc()..add(EditNoteStarted(noteModel)),
+            child: Body(noteModel: noteModel),
+          ),
         ),
       ),
     );

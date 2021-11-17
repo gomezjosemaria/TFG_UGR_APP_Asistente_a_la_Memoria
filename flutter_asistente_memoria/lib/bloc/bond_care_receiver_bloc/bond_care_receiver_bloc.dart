@@ -44,7 +44,6 @@ class BondCareReceiverBloc extends Bloc<BondCareReceiverEvent, BondCareReceiverS
   }
 
   Stream<BondCareReceiverState> _mapBondCareReceiverSubmittedToState(BondCareReceiverSubmitted event, BondCareReceiverState state) async* {
-    print("event recived");
     final FormzStatus status = Formz.validate([state.emailInput, state.codeInput]);
     if (status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);

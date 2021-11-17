@@ -10,11 +10,13 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         title: Text('Perfil', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => ProfileBloc(),
-          child: Body(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => ProfileBloc(),
+            child: Body(),
+          ),
         ),
       ),
     );

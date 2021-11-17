@@ -84,7 +84,6 @@ class EditItemBloc extends Bloc<EditItemEvent, EditItemState> {
     }
 
     EditItemState _mapEditItemStartedToState(EditItemStarted event, EditItemState state) {
-      print("started" + event.item.toString());
       return state.copyWith(
         status: Formz.validate([NameInput.dirty(event.item.name)]),
         nameInput: NameInput.dirty(event.item.name),
@@ -106,6 +105,5 @@ class EditItemBloc extends Bloc<EditItemEvent, EditItemState> {
         yield EditItemDeleteErrorState();
       }
       yield EditItemDeleteSuccessState();
-      print("se lanzó");
     }
   }

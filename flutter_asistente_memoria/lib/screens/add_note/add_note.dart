@@ -11,22 +11,24 @@ class AddNote extends StatelessWidget {
       appBar: AppBar(
         title: Text('Añadir Nota', style: TextStyle(fontSize: 25)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => AddNoteBloc(),
-          child: Align(
-            alignment: Alignment.center,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  _NoteTextInput(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 20.0,
-                  ),
-                  _AddNoteButton()
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => AddNoteBloc(),
+            child: Align(
+              alignment: Alignment.center,
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    _NoteTextInput(),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 20.0,
+                    ),
+                    _AddNoteButton()
+                  ],
+                ),
               ),
             ),
           ),

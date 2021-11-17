@@ -36,18 +36,19 @@ class NotificationService {
     }
   }
 
-  static void showScheduledNotification({
+  static Future<void> showScheduledNotification({
     int id = 0,
     String? title,
     String? body,
     String? payload,
     required DateTime scheduledDate,
   }) async {
-    flutterLocalNotificationsPlugin.zonedSchedule(
+    await flutterLocalNotificationsPlugin.cancel(id);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       body,
-      tz.TZDateTime.from(scheduledDate, tz.local).add(const Duration(minutes: 5)),
+      tz.TZDateTime.from(scheduledDate, tz.local),
       await _notificationDetails(),
       payload: payload,
       androidAllowWhileIdle: true,
@@ -55,5 +56,18 @@ class NotificationService {
     );
   }
 
+  static Future<void> deleteAllNotifications() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
+  }
 
+  static Future<List<ActiveNotification>> getNotifications() async {
+    List<ActiveNotification> listNotifications = <ActiveNotification>[];
+    listNotifications = (await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()!.getActiveNotifications())!;
+    if (listNotifications != null) {
+      return listNotifications;
+    }
+    else {
+      return <ActiveNotification>[];
+    }
+  }
 }

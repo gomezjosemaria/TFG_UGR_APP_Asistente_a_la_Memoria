@@ -11,9 +11,11 @@ class SecondMenu extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Body(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Body(),
+        ),
       ),
     );
   }

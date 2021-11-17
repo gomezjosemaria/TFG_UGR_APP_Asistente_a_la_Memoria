@@ -13,11 +13,13 @@ class ChooseRole extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: BlocProvider(
-          create: (context) => ChooseRoleBloc(),
-          child: Body(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: BlocProvider(
+            create: (context) => ChooseRoleBloc(),
+            child: Body(),
+          ),
         ),
       ),
     );
