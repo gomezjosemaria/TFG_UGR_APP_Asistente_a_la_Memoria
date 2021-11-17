@@ -137,7 +137,7 @@ class _MedicationFrequencyNumber extends StatelessWidget {
                   height: 10.0,
                 ),
                 DropdownButtonFormField<String>(
-                  value: state.frequencyNumber,
+                  value: ToString.doubleStringToString(state.frequencyNumber),
                   isExpanded: true,
                   icon: const Icon(Icons.arrow_downward),
                   items: options.map<DropdownMenuItem<String>>((String value) {

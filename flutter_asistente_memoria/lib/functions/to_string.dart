@@ -46,4 +46,22 @@ class ToString {
     return timeOfDay;
   }
 
+  static doubleToString(double number) {
+    if (number - number.floor() == 0.0) {
+      return number.floor().toString();
+    }
+    else {
+      return number.toString();
+    }
+  }
+
+  static doubleStringToString(String doubleString) {
+    if (doubleString.endsWith('0')) {
+      return doubleString.substring(0, doubleString.indexOf('.'));
+    }
+    else {
+      return doubleString;
+    }
+  }
+
 }

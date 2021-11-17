@@ -1,16 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_asistente_memoria/screens/login/login.dart';
-import 'package:flutter_asistente_memoria/screens/main_menu/main_menu.dart';
 import 'package:flutter_asistente_memoria/screens/main_screen/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/authentication/authentication_bloc.dart';
+import 'functions/notification_service.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.init(true);
   await Firebase.initializeApp();
   runApp(
     BlocProvider(

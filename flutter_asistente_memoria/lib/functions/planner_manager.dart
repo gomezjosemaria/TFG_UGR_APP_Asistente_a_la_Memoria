@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_asistente_memoria/functions/notification_service.dart';
 import 'package:flutter_asistente_memoria/functions/to_string.dart';
 import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 import 'package:flutter_asistente_memoria/model/appointments_model.dart';
@@ -141,6 +142,7 @@ class PlannerManager {
   }
 
   static List<MedicationModel> getTodayMedication() {
+    print("EMPIEZA" + _medicationToday.toString() + "ACABA");
     return _medicationToday;
   }
 
@@ -199,6 +201,39 @@ class PlannerManager {
 
   static List<Object> getOrderByTime() {
     return _orderByTime;
+  }
+
+  static void setAlarms() {
+    for (int i = 0; i < _alarmsToday.length; i++) {
+      setAlarmNotification(_alarmsToday[i], i);
+    }
+    for (int i = 0; i < _medicationToday.length; i++) {
+      setMedicationNotification(_medicationToday[i], 100 + i);
+    }
+    for (int i = 0; i < _appointmentsToday.length; i++) {
+      setAppointmentNotification(_appointmentsToday[i], 200 + i);
+    }
+  }
+
+  static void setAlarmNotification(AlarmModel alarmModel, int id) {
+    TimeOfDay timeOfDay = ToString.stringToTimeOfDay(alarmModel.time);
+    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+    NotificationService.showScheduledNotification(id: id, title: alarmModel.tittle, scheduledDate: dateTime);
+  }
+
+  static void setMedicationNotification(MedicationModel medicationModel, int id) {
+    TimeOfDay timeOfDay = ToString.stringToTimeOfDay(medicationModel.time);
+    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+    NotificationService.showScheduledNotification(id: id, title: medicationModel.name, scheduledDate: dateTime);
+  }
+
+  static void setAppointmentNotification(AppointmentModel appointmentModel, int id) {
+    TimeOfDay timeOfDay = ToString.stringToTimeOfDay(appointmentModel.time);
+    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+    NotificationService.showScheduledNotification(id: id, title: appointmentModel.place, scheduledDate: dateTime);
   }
 
   static List<TimeObject> orderByTimeTwoLists(
