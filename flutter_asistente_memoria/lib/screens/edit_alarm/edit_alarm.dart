@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/edit_alarm/edit_alarm_bloc.dart';
 import 'package:flutter_asistente_memoria/model/alarm_model.dart';
+import 'package:flutter_asistente_memoria/screens/alarms/alarms.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/body.dart';
@@ -17,6 +18,13 @@ class EditAlarm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Editar Alarma', style: TextStyle(fontSize: 25)),
+        leading:
+        IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alarms()));
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

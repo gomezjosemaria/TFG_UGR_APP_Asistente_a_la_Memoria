@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/edit_note/edit_note_bloc.dart';
 import 'package:flutter_asistente_memoria/model/note_model.dart';
+import 'package:flutter_asistente_memoria/screens/notes/notes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/body.dart';
@@ -16,6 +17,13 @@ class EditNote extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Editar Nota', style: TextStyle(fontSize: 25)),
+        leading:
+        IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Notes()));
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
