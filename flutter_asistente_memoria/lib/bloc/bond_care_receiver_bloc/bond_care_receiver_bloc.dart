@@ -49,7 +49,7 @@ class BondCareReceiverBloc extends Bloc<BondCareReceiverEvent, BondCareReceiverS
     if (status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
-        Authentication.bondCurrentUser(state.emailInput.value, state.codeInput.value);
+        await Authentication.bondCurrentUser(state.emailInput.value, state.codeInput.value);
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception {
         yield state.copyWith(status: FormzStatus.submissionFailure);

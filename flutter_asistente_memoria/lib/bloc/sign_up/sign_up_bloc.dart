@@ -36,7 +36,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final nameInput = NameInput.dirty(event.nameInput);
     return state.copyWith(
       nameInput: nameInput,
-      formzStatus: Formz.validate([state.passwordInput, state.emailInput, nameInput]),
     );
   }
 
@@ -44,7 +43,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final emailInput = EmailInput.dirty(event.emailInput);
     return state.copyWith(
       emailInput: emailInput,
-      formzStatus: Formz.validate([state.passwordInput, emailInput, state.nameInput]),
     );
   }
 
@@ -52,7 +50,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final passwordInput = PasswordInput.dirty(event.passwordInput);
     return state.copyWith(
       passwordInput: passwordInput,
-      formzStatus: Formz.validate([passwordInput, state.emailInput, state.nameInput]),
     );
   }
 
@@ -65,7 +62,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       yield state.copyWith(formzStatus: FormzStatus.submissionInProgress);
       await Future.delayed(Duration(seconds: 3));
       try {
-        Authentication.signUpWithEmailAndPassword(state.nameInput.value, state.emailInput.value, state.passwordInput.value);
+        await Authentication.signUpWithEmailAndPassword(state.nameInput.value, state.emailInput.value, state.passwordInput.value);
         yield state.copyWith(formzStatus: FormzStatus.submissionSuccess);
       } on Exception {
         yield state.copyWith(formzStatus: FormzStatus.submissionFailure);
@@ -74,9 +71,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     else {
       yield state.copyWith(
         formzStatus: FormzStatus.invalid,
-        nameInput: state.nameInput,
-        emailInput: state.emailInput,
-        passwordInput: state.passwordInput,
       );
     }
   }

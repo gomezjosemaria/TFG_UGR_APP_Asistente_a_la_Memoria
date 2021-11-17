@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/bond_care_receiver_bloc/bond_care_receiver_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/screens/components/log_out_button.dart';
+import 'package:flutter_asistente_memoria/screens/main_menu/main_menu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -43,7 +44,11 @@ class Body extends StatelessWidget {
 class _BondButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BondCareReceiverBloc, BondCareReceiverState>(
+    return BlocConsumer<BondCareReceiverBloc, BondCareReceiverState>(
+      listenWhen: (previous, current) => current.status == FormzStatus.submissionSuccess,
+      listener: (context, state) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainMenu()));
+      },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return SizedBox(

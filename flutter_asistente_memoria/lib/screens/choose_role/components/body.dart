@@ -3,6 +3,7 @@ import 'package:flutter_asistente_memoria/bloc/choose_role/choose_role_bloc.dart
 import 'package:flutter_asistente_memoria/bloc/role/role_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/model/user.dart';
+import 'package:flutter_asistente_memoria/screens/bond_care_receiver/bond_care_receiver.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Body extends StatelessWidget {
@@ -56,7 +57,11 @@ class Body extends StatelessWidget {
 class _CaregiverRoleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseRoleBloc, ChooseRoleState>(
+    return BlocConsumer<ChooseRoleBloc, ChooseRoleState>(
+      listenWhen: (previous, current) => current.status == ChooseRoleStatus.selectionSuccess,
+      listener: (context, state) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
+      },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status == ChooseRoleStatus.selectionSuccess) {
@@ -82,7 +87,7 @@ class _CaregiverRoleButton extends StatelessWidget {
             onPressed: state.status == ChooseRoleStatus.caregiverSelectionProgress || state.status == ChooseRoleStatus.careReceiverSelectionProgress ? null : () {
               context.read<ChooseRoleBloc>().add(ChooseRoleCaregiver());
             },
-            child: Text("Cuidador", style: TextStyle(fontSize: 25)),
+            child: state.status == ChooseRoleStatus.caregiverSelectionProgress || state.status == ChooseRoleStatus.careReceiverSelectionProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Cuidador", style: TextStyle(fontSize: 25)),
           ),
         );
       },
@@ -93,7 +98,11 @@ class _CaregiverRoleButton extends StatelessWidget {
 class _CareReceiverRoleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseRoleBloc, ChooseRoleState>(
+    return BlocConsumer<ChooseRoleBloc, ChooseRoleState>(
+      listenWhen: (previous, current) => current.status == ChooseRoleStatus.selectionSuccess,
+      listener: (context, state) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
+      },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return SizedBox(
@@ -106,7 +115,7 @@ class _CareReceiverRoleButton extends StatelessWidget {
             onPressed: state.status == ChooseRoleStatus.caregiverSelectionProgress || state.status == ChooseRoleStatus.careReceiverSelectionProgress ? null : () {
               context.read<ChooseRoleBloc>().add(ChooseRoleCareReceiver());
             },
-            child: Text("Persona", style: TextStyle(fontSize: 50)),
+            child: state.status == ChooseRoleStatus.caregiverSelectionProgress || state.status == ChooseRoleStatus.careReceiverSelectionProgress ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)) : Text("Persona", style: TextStyle(fontSize: 50)),
           ),
         );
       },

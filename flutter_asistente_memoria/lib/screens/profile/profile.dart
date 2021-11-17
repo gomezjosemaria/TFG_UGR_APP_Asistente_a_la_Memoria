@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_asistente_memoria/bloc/profile/profile_bloc.dart';
 import 'package:flutter_asistente_memoria/screens/profile/components/body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -10,7 +12,10 @@ class Profile extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: Body(),
+        child: BlocProvider(
+          create: (context) => ProfileBloc(),
+          child: Body(),
+        ),
       ),
     );
   }
