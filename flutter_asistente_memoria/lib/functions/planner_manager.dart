@@ -247,7 +247,8 @@ class PlannerManager {
     }
 
     for (int i = 0; i < second.length; i++) {
-      secondTime.add(ToString.stringToTimeOfDay(second[i].time));
+      DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+      firstTime.add(dateTime);
     }
 
     for (int i = 0; i < first.length; i++) {
