@@ -4,6 +4,7 @@ import 'package:flutter_asistente_memoria/bloc/role/role_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/model/user.dart';
 import 'package:flutter_asistente_memoria/screens/bond_care_receiver/bond_care_receiver.dart';
+import 'package:flutter_asistente_memoria/screens/main_menu/main_menu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Body extends StatelessWidget {
@@ -60,7 +61,13 @@ class _CaregiverRoleButton extends StatelessWidget {
     return BlocConsumer<ChooseRoleBloc, ChooseRoleState>(
       listenWhen: (previous, current) => current.status == ChooseRoleStatus.selectionSuccess,
       listener: (context, state) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
+        if (Authentication.getUserRole() == UserRole.careReceiver) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainMenu()));
+        }
+        else if (Authentication.getUserRole() == UserRole.caregiver) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
+
+        }
       },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {

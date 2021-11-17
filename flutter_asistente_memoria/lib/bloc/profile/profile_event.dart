@@ -10,3 +10,12 @@ class ProfileLogOut extends ProfileEvent {
   @override
   List<Object> get props => [];
 }
+
+class ProfileSimplify extends ProfileEvent {
+  final bool simplify;
+
+  const ProfileSimplify(this.simplify);
+
+  @override
+  List<Object> get props => [simplify];
+}

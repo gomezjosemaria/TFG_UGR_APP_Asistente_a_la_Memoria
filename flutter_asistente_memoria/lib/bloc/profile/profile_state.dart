@@ -4,6 +4,8 @@ enum ProfileStatus {
   initial,
   login_out,
   log_out,
+  simplifying,
+  simplified,
   error,
 }
 

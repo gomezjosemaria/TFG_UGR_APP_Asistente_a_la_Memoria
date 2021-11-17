@@ -23,6 +23,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       else {
         await Authentication.loadUserRole();
         await Authentication.loadUserBond();
+        await Authentication.loadSimplify();
         yield state.authenticated(userModel);
       }
     }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_asistente_memoria/functions/authentication.dart';
+import 'package:flutter_asistente_memoria/model/user.dart';
 import 'package:flutter_asistente_memoria/screens/alarms/alarms.dart';
 import 'package:flutter_asistente_memoria/screens/appointments/appointments.dart';
 import 'package:flutter_asistente_memoria/screens/main_menu/components/menu_button.dart';
@@ -24,21 +26,24 @@ class ButtonGrid extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Profile()));
           },
         ),
-        MenuButton(
+        if (Authentication.getSimplify() == false && Authentication.getUserRole() == UserRole.careReceiver || Authentication.getUserRole() == UserRole.caregiver)
+          MenuButton(
           title: 'Alarmas',
           icon: Icons.alarm,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alarms()));
           },
         ),
-        MenuButton(
+        if (Authentication.getSimplify() == false && Authentication.getUserRole() == UserRole.careReceiver || Authentication.getUserRole() == UserRole.caregiver)
+          MenuButton(
           title: 'Medicación',
           icon: Icons.healing,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Medication()));
           },
         ),
-        MenuButton(
+        if (Authentication.getSimplify() == false && Authentication.getUserRole() == UserRole.careReceiver || Authentication.getUserRole() == UserRole.caregiver)
+          MenuButton(
           title: 'Citas Médicas',
           icon: Icons.local_hospital,
           onPressed: () {
@@ -52,6 +57,7 @@ class ButtonGrid extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Planner()));
           },
         ),
+        if (Authentication.getSimplify() == false && Authentication.getUserRole() == UserRole.careReceiver || Authentication.getUserRole() == UserRole.caregiver)
         MenuButton(
           title: 'Notas',
           icon: Icons.sticky_note_2,

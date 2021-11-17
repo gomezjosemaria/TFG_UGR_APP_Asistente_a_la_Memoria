@@ -12,6 +12,7 @@ class Authentication {
   static String _bondCode = '';
   static String _userBond = '';
   static List<String> _userBonds = List.empty();
+  static bool _simplify = false;
 
   static Future<void> signInWithEmailAndPassword(
       String email, String password) async {
@@ -30,6 +31,7 @@ class Authentication {
           email: email, password: password);
       await signInWithEmailAndPassword(email, password);
       await _setUserName(name);
+      await setSimplify(false);
     } on FirebaseAuthException catch (e) {
       throw e;
     }
@@ -38,6 +40,7 @@ class Authentication {
   static Future<void> singOut() async {
     _userRole = UserRole.unselected;
     _bondCode = '';
+    _simplify = false;
     try {
       await _firebaseAuth.signOut();
     } on FirebaseAuthException catch (e) {
@@ -55,6 +58,34 @@ class Authentication {
         });
       } on FirebaseException catch (e) {
         throw (e);
+      }
+    }
+  }
+
+  static Future<void> setSimplify(bool s) async {
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser != null) {
+      if (_userRole == UserRole.careReceiver) {
+        try {
+          await _collectionReferenceUsers.doc(firebaseUser.email).update({
+            'simplify': s,
+          });
+          Authentication._simplify = s;
+        }
+        on FirebaseException catch (e) {
+          throw (e);
+        }
+      }
+      else if (_userRole == UserRole.caregiver) {
+        try {
+          await _collectionReferenceUsers.doc(_userBond).update({
+            'simplify': s,
+          });
+          Authentication._simplify = s;
+        }
+        on FirebaseException catch (e) {
+          throw (e);
+        }
       }
     }
   }
@@ -108,6 +139,42 @@ class Authentication {
     }
   }
 
+  static Future<void> loadSimplify() async {
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser != null) {
+      if (_userRole == UserRole.careReceiver) {
+        try {
+          await _collectionReferenceUsers
+              .doc(firebaseUser.email)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              Authentication._simplify = documentSnapshot.data()!['simplify'];
+            }
+          });
+        }
+        on FirebaseException catch (e) {
+          throw (e);
+        }
+      }
+      else if (_userRole == UserRole.caregiver) {
+        try {
+          await _collectionReferenceUsers
+              .doc(_userBond)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              Authentication._simplify = documentSnapshot.data()!['simplify'];
+            }
+          });
+        }
+        on FirebaseException catch (e) {
+          throw (e);
+        }
+      }
+    }
+  }
+
   static Future<void> loadUserBond() async {
     User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser != null) {
@@ -141,6 +208,10 @@ class Authentication {
 
   static List<String> getUserBonds() {
     return _userBonds;
+  }
+
+  static bool getSimplify() {
+    return _simplify;
   }
 
   static Future<void> bondCurrentUser(String userEmail, String userCode) async {
