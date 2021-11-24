@@ -8,8 +8,12 @@ class EditNextStepButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddActivityBloc, AddActivityState>(
-      buildWhen: (previous, current) => previous.stepInd != current.stepInd,
       builder: (context, state) {
+        print('Editar');
+        print(state.steps.length);
+        print(state.stepInd);
+        print(state.steps);
+        print(state);
         if (state.steps.length - 1 == state.stepInd) {
           return SizedBox(
             width: double.infinity,

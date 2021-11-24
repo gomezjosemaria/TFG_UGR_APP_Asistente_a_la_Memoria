@@ -87,9 +87,11 @@ class EditAppointmentBloc extends Bloc<EditAppointmentEvent, EditAppointmentStat
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
         if (Authentication.getUserRole() == UserRole.caregiver) {
+          await AppointmentManager.deleteAppointment(event.appointmentUnmodified, Authentication.getUserBond(), event.activateUnmodified);
           await AppointmentManager.saveAppointment(appointment, Authentication.getUserBond(), true);
         }
         else {
+          await AppointmentManager.deleteAppointment(event.appointmentUnmodified, Authentication.getCurrentUser().email, event.activateUnmodified);
           await AppointmentManager.saveAppointment(appointment, Authentication.getCurrentUser().email, true);
         }
         yield state.copyWith(status: FormzStatus.submissionSuccess);

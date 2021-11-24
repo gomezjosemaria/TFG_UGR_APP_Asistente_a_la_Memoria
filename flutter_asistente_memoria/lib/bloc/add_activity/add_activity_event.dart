@@ -71,3 +71,10 @@ class AddActivityPreviousStep extends AddActivityEvent {
   @override
   List<Object> get props => [];
 }
+
+class AddActivityDelete extends AddActivityEvent {
+  const AddActivityDelete();
+
+  @override
+  List<Object?> get props => [];
+}

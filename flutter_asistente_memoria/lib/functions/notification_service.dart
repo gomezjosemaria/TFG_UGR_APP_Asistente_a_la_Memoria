@@ -10,14 +10,15 @@ class NotificationService {
       AndroidInitializationSettings('app_icon');
   static final InitializationSettings initializationSettings =
       InitializationSettings(android: initializationSettingsAndroid);
+  static final String sound = 'sound.wav';
 
   static Future _notificationDetails() async {
     return NotificationDetails(
       android: AndroidNotificationDetails(
-        'channel id',
+        'channel id 2',
         'channel name',
         'channel description',
-        playSound: true,
+        sound: RawResourceAndroidNotificationSound(sound.split('.').first),
         importance: Importance.max,
         priority: Priority.high,
       ),

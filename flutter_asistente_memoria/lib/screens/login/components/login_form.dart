@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_asistente_memoria/bloc/login/login_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
+import 'package:flutter_asistente_memoria/screens/main_screen/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -129,7 +130,11 @@ class _PasswordInputState extends State<_PasswordInput>{
 class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocConsumer<LoginBloc, LoginState>(
+      listenWhen: (previous, current) => current.formzStatus.isSubmissionSuccess,
+      listener: (context, state) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainScreen()));
+      },
       buildWhen: (previous, current) => previous.formzStatus != current.formzStatus,
       builder: (context, state) {
         if (state.formzStatus.isSubmissionSuccess) {

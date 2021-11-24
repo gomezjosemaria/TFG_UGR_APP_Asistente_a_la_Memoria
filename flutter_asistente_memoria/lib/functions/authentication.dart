@@ -31,7 +31,7 @@ class Authentication {
           email: email, password: password);
       await signInWithEmailAndPassword(email, password);
       await _setUserName(name);
-      await setSimplify(false);
+      await _setInitialSimplify(false);
     } on FirebaseAuthException catch (e) {
       throw e;
     }
@@ -55,6 +55,19 @@ class Authentication {
         await firebaseUser.updateDisplayName(name);
         await _collectionReferenceUsers.doc(firebaseUser.email).set({
           'name': name,
+        });
+      } on FirebaseException catch (e) {
+        throw (e);
+      }
+    }
+  }
+
+  static Future<void> _setInitialSimplify(bool s) async {
+    User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser != null) {
+      try {
+        await _collectionReferenceUsers.doc(firebaseUser.email).update({
+          'simplify': s,
         });
       } on FirebaseException catch (e) {
         throw (e);
@@ -97,6 +110,7 @@ class Authentication {
         await _collectionReferenceUsers.doc(firebaseUser.email).update({
           'role': userRoleToString(role),
         });
+        _userRole = role;
         if (role == UserRole.careReceiver) {
           await _collectionReferenceUsers.doc(firebaseUser.email).update({
             'bondCode': ToString.randomString(5),

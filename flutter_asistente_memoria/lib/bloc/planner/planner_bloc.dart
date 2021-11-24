@@ -19,19 +19,7 @@ class PlannerBloc extends Bloc<PlannerEvent, PlannerState> {
     if (event is PlannerStarted) {
       yield state.copyWith(status: PlannerStatus.loading);
       try {
-        if (Authentication.getUserRole() == UserRole.caregiver) {
-          await PlannerManager.loadTodayAlarm(Authentication.getUserBond());
-          await PlannerManager.loadTodayAppointments(Authentication.getUserBond());
-          await PlannerManager.loadTodayMedication(Authentication.getUserBond());
-        }
-        else if (Authentication.getUserRole() == UserRole.careReceiver) {
-          await PlannerManager.loadTodayAlarm(Authentication.getCurrentUserEmail());
-          await PlannerManager.loadTodayAppointments(Authentication.getCurrentUserEmail());
-          await PlannerManager.loadTodayMedication(Authentication.getCurrentUserEmail());
-        }
-        PlannerManager.getTodayMedication();
-        PlannerManager.orderByTime();
-        PlannerManager.setAlarms();
+        await PlannerManager.loadAll();
         yield state.copyWith(status: PlannerStatus.loadedSuccessfully);
       } catch (e) {
         yield state.copyWith(status: PlannerStatus.error);

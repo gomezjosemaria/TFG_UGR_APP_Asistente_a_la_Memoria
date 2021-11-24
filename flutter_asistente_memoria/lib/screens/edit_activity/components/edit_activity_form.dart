@@ -44,6 +44,7 @@ class _ActivityTitleInput extends StatelessWidget {
         ),
         BlocBuilder<AddActivityBloc, AddActivityState>(
             builder: (context, state) {
+              print('Form'+state.toString());
           TextEditingController _controller = TextEditingController();
           _controller.value = TextEditingValue(text: state.titleInput.value);
           var cursorPos = _controller.selection;

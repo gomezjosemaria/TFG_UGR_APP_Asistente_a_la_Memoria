@@ -39,10 +39,15 @@ class AddActivityBloc extends Bloc<AddActivityEvent, AddActivityState> {
     }
     if (event is AddActivityPreviousStep) {
       yield _mapAddActivityPreviousStepToState(event, state);
-    } else if (event is AddActivitySubmitted) {
+    }
+    else if (event is AddActivitySubmitted) {
       yield* _mapAddActivitySubmittedToState(event, state);
-    } else if (event is AddActivityEditedSubmitted) {
+    }
+    else if (event is AddActivityEditedSubmitted) {
       yield* _mapAddActivityEditedSubmittedToState(event, state);
+    }
+    else if (event is AddActivityDelete) {
+      yield* _mapAddActivityDeleteToState(event, state);
     }
   }
 
@@ -177,5 +182,22 @@ class AddActivityBloc extends Bloc<AddActivityEvent, AddActivityState> {
         status: FormzStatus.invalid,
       );
     }
+  }
+
+  Stream<AddActivityState> _mapAddActivityDeleteToState(AddActivityDelete event, AddActivityState state) async* {
+    var userEmail;
+    yield ActivityDeletingState();
+    if (Authentication.getUserRole() == UserRole.caregiver) {
+      userEmail = Authentication.getUserBond();
+    }
+    else {
+      userEmail = Authentication.getCurrentUser().email;
+    }
+    try {
+      await ActivityManager.deleteActivity(state.activityInitial, userEmail);
+    } on Exception {
+      yield ActivityDeleteErrorState();
+    }
+    yield ActivityDeleteSuccessState();
   }
 }

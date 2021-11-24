@@ -35,3 +35,11 @@ class AddActivityState extends Equatable {
   List<Object> get props =>
       [status, titleInput, stepInd, steps, activityInitial];
 }
+
+class ActivityDeleteState extends AddActivityState {}
+
+class ActivityDeletingState extends AddActivityState {}
+
+class ActivityDeleteSuccessState extends AddActivityState {}
+
+class ActivityDeleteErrorState extends AddActivityState {}

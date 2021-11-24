@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/functions/notification_service.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_asistente_memoria/model/alarm_model.dart';
 import 'package:flutter_asistente_memoria/model/appointments_model.dart';
 import 'package:flutter_asistente_memoria/model/medication_model.dart';
 import 'package:flutter_asistente_memoria/model/time_object_model.dart';
+import 'package:flutter_asistente_memoria/model/user.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
@@ -58,6 +60,7 @@ class PlannerManager {
   }
 
   static Future<void> loadTodayMedication(String userEmail) async {
+    print('load medication');
     try {
       var collectionReferenceMedicationActive =
           _collectionReferenceMedication.doc(userEmail).collection('active');
@@ -65,6 +68,7 @@ class PlannerManager {
           await collectionReferenceMedicationActive.get();
       _medicationToday.clear();
       for (int i = 0; i < querySnapshotActive.docs.length; i++) {
+        print(i.toString());
         var medication = querySnapshotActive.docs[i];
         var add = false;
         if (DateTime.now()
@@ -108,6 +112,8 @@ class PlannerManager {
     } on FirebaseException catch (e) {
       throw (e);
     }
+    _medicationToday = _orderMedication(_medicationToday);
+    print(_medicationToday.toString());
   }
 
   static List<AlarmModel> getTodayAlarms() {
@@ -115,6 +121,7 @@ class PlannerManager {
   }
 
   static Future<void> loadTodayAlarm(String userEmail) async {
+    print('load alarms');
     try {
       var collectionReferenceAlarmsActive =
           _collectionReferenceAlarms.doc(userEmail).collection('active');
@@ -123,6 +130,7 @@ class PlannerManager {
 
       _alarmsToday.clear();
       for (int i = 0; i < querySnapshotActive.docs.length; i++) {
+        print(i.toString());
         var alarm = querySnapshotActive.docs[i];
         var add = false;
         if (!alarm.data()['repeat']) {
@@ -145,6 +153,8 @@ class PlannerManager {
     } on FirebaseException catch (e) {
       throw (e);
     }
+    _alarmsToday = _orderAlarms(_alarmsToday);
+    print(_alarmsToday.toString());
   }
 
   static List<MedicationModel> getTodayMedication() {
@@ -152,6 +162,7 @@ class PlannerManager {
   }
 
   static loadTodayAppointments(String userEmail) async {
+    print('load appointments');
     try {
       var collectionReferenceAppointmentsActive =
           _collectionReferenceAppointments.doc(userEmail).collection('active');
@@ -161,6 +172,7 @@ class PlannerManager {
       _appointmentsToday.clear();
 
       for (int i = 0; i < querySnapshotActive.docs.length; i++) {
+        print(i.toString());
         var appointment = querySnapshotActive.docs[i];
         if (isTodayThisDay(appointment.data()['date'].toString())) {
           var appointmentModel = new AppointmentModel(
@@ -179,6 +191,8 @@ class PlannerManager {
     } on FirebaseException catch (e) {
       throw (e);
     }
+    _appointmentsToday = _orderAppointment(_appointmentsToday);
+    print('TodayAppointments'+_appointmentsToday.toString());
   }
 
   static List<AppointmentModel> getTodayAppointments() {
@@ -186,27 +200,8 @@ class PlannerManager {
   }
 
   static orderByTime() {
-    if (_alarmsToday.length > 0 && _medicationToday.length > 0) {
-      _orderByTime = orderByTimeTwoLists(_alarmsToday, _medicationToday);
-      if (_appointmentsToday.length > 0) {
-        _orderByTime = orderByTimeTwoLists(_orderByTime, _appointmentsToday);
-      }
-    } else if (_alarmsToday.length > 0) {
-      if (_appointmentsToday.length > 0) {
-        _orderByTime = orderByTimeTwoLists(_alarmsToday, _appointmentsToday);
-      } else {
-        _orderByTime = _alarmsToday;
-      }
-    } else if (_medicationToday.length > 0) {
-      if (_appointmentsToday.length > 0) {
-        _orderByTime =
-            orderByTimeTwoLists(_medicationToday, _appointmentsToday);
-      } else {
-        _orderByTime = _medicationToday;
-      }
-    } else {
-      _orderByTime = _appointmentsToday;
-    }
+    List<TimeObject> aux = new List.from(_alarmsToday)..addAll(_medicationToday);
+    _orderByTime = new List.from(aux)..addAll(_appointmentsToday);
   }
 
   static List<Object> getOrderByTime() {
@@ -214,10 +209,17 @@ class PlannerManager {
   }
 
   static Future<void> loadAll() async {
-    final String userBond = Authentication.getUserBond();
-    await loadTodayMedication(userBond);
-    await loadTodayAppointments(userBond);
-    await loadTodayAlarm(userBond);
+    String email;
+    if (Authentication.getUserRole() == UserRole.caregiver) {
+      email = Authentication.getUserBond();
+    }
+    else {
+      email = Authentication.getCurrentUserEmail();
+    }
+    await loadTodayMedication(email);
+    await loadTodayAppointments(email);
+    await loadTodayAlarm(email);
+    orderByTime();
     await setAlarms();
     print ("Notifications");
     List<ActiveNotification> listNotifications = <ActiveNotification>[];
@@ -272,14 +274,14 @@ class PlannerManager {
     TimeOfDay timeOfDay = ToString.stringToTimeOfDay(medicationModel.time);
     DateTime now = DateTime.now();
     DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-    await NotificationService.showScheduledNotification(id: id, title: 'Medication', body: medicationModel.name, scheduledDate: dateTime);
+    await NotificationService.showScheduledNotification(id: id, title: 'Medicación', body: medicationModel.name, scheduledDate: dateTime);
   }
 
   static Future<void> setAppointmentNotification(AppointmentModel appointmentModel, int id) async {
     TimeOfDay timeOfDay = ToString.stringToTimeOfDay(appointmentModel.time);
     DateTime now = DateTime.now();
     DateTime dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-    await NotificationService.showScheduledNotification(id: id, title: 'Appointment', body: appointmentModel.place, scheduledDate: dateTime);
+    await NotificationService.showScheduledNotification(id: id, title: 'Cita Médica', body: appointmentModel.place, scheduledDate: dateTime);
   }
 
   static List<TimeObject> orderByTimeTwoLists(
@@ -370,4 +372,86 @@ class PlannerManager {
 
     return orderList;
   }
+
+  static List<AlarmModel> _orderAlarms(List<AlarmModel> alarms) {
+    DateTime now = DateTime.now();
+    List<AlarmModel> timeObjectAux = alarms;
+
+    for (int i = 0; i < timeObjectAux.length - 1; i++) {
+      for (int j = i + 1; j < timeObjectAux.length; j++) {
+        TimeOfDay timeOfDayI = ToString.stringToTimeOfDay(timeObjectAux[i].time);
+        DateTime dateTimeI = DateTime(now.year, now.month, now.day, timeOfDayI.hour, timeOfDayI.minute);
+        TimeOfDay timeOfDayJ = ToString.stringToTimeOfDay(timeObjectAux[j].time);
+        DateTime dateTimeJ = DateTime(now.year, now.month, now.day, timeOfDayJ.hour, timeOfDayJ.minute);
+        print(dateTimeI.toString() + '    ' + dateTimeJ.toString());
+        if (dateTimeI.isBefore(dateTimeJ)) {
+          AlarmModel aux = timeObjectAux[i];
+          timeObjectAux[i] = timeObjectAux[j];
+          timeObjectAux[j] = aux;
+        }
+        else {
+          AlarmModel aux = timeObjectAux[j];
+          timeObjectAux[j] = timeObjectAux[i];
+          timeObjectAux[i] = aux;
+        }
+      }
+    }
+
+    print(timeObjectAux.toString());
+    return timeObjectAux;
+  }
+
+  static List<MedicationModel> _orderMedication(List<MedicationModel> list) {
+    DateTime now = DateTime.now();
+    List<MedicationModel> timeObjectAux = list;
+
+    for (int i = 0; i < timeObjectAux.length - 1; i++) {
+      for (int j = i + 1; j < timeObjectAux.length; j++) {
+        TimeOfDay timeOfDayI = ToString.stringToTimeOfDay(timeObjectAux[i].time);
+        DateTime dateTimeI = DateTime(now.year, now.month, now.day, timeOfDayI.hour, timeOfDayI.minute);
+        TimeOfDay timeOfDayJ = ToString.stringToTimeOfDay(timeObjectAux[j].time);
+        DateTime dateTimeJ = DateTime(now.year, now.month, now.day, timeOfDayJ.hour, timeOfDayJ.minute);
+        if (dateTimeI.isAfter(dateTimeJ)) {
+          MedicationModel aux = timeObjectAux[i];
+          timeObjectAux[i] = timeObjectAux[j];
+          timeObjectAux[j] = aux;
+        }
+        else {
+          MedicationModel aux = timeObjectAux[j];
+          timeObjectAux[j] = timeObjectAux[i];
+          timeObjectAux[i] = aux;
+        }
+      }
+    }
+
+    return timeObjectAux;
+  }
+
+  static List<AppointmentModel> _orderAppointment(List<AppointmentModel> list) {
+    DateTime now = DateTime.now();
+    List<AppointmentModel> timeObjectAux = list;
+
+    for (int i = 0; i < timeObjectAux.length - 1; i++) {
+      for (int j = i + 1; j < timeObjectAux.length; j++) {
+        TimeOfDay timeOfDayI = ToString.stringToTimeOfDay(timeObjectAux[i].time);
+        DateTime dateTimeI = DateTime(now.year, now.month, now.day, timeOfDayI.hour, timeOfDayI.minute);
+        TimeOfDay timeOfDayJ = ToString.stringToTimeOfDay(timeObjectAux[j].time);
+        DateTime dateTimeJ = DateTime(now.year, now.month, now.day, timeOfDayJ.hour, timeOfDayJ.minute);
+        if (dateTimeI.isAfter(dateTimeJ)) {
+          AppointmentModel aux = timeObjectAux[i];
+          timeObjectAux[i] = timeObjectAux[j];
+          timeObjectAux[j] = aux;
+        }
+        else {
+          AppointmentModel aux = timeObjectAux[j];
+          timeObjectAux[j] = timeObjectAux[i];
+          timeObjectAux[i] = aux;
+        }
+      }
+    }
+
+    return timeObjectAux;
+  }
+
 }
+

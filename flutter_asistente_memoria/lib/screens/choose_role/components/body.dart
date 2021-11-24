@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_asistente_memoria/bloc/choose_role/choose_role_bloc.dart';
-import 'package:flutter_asistente_memoria/bloc/role/role_bloc.dart';
 import 'package:flutter_asistente_memoria/functions/authentication.dart';
 import 'package:flutter_asistente_memoria/model/user.dart';
 import 'package:flutter_asistente_memoria/screens/bond_care_receiver/bond_care_receiver.dart';
@@ -66,24 +65,11 @@ class _CaregiverRoleButton extends StatelessWidget {
         }
         else if (Authentication.getUserRole() == UserRole.caregiver) {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
-
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (state.status == ChooseRoleStatus.selectionSuccess) {
-          UserRole userRole = Authentication.getUserRole();
-          if (userRole == UserRole.caregiver) {
-            BlocProvider.of<RoleBloc>(context).add(
-                RoleCaregiver(),
-            );
-          }
-          else if (userRole == UserRole.careReceiver) {
-            BlocProvider.of<RoleBloc>(context).add(
-              RoleCareReceiver(),
-            );
-          }
-        }
+        print(state.status);
         return SizedBox(
           width: double.infinity,
           height: 60.0,
@@ -108,7 +94,7 @@ class _CareReceiverRoleButton extends StatelessWidget {
     return BlocConsumer<ChooseRoleBloc, ChooseRoleState>(
       listenWhen: (previous, current) => current.status == ChooseRoleStatus.selectionSuccess,
       listener: (context, state) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
+        //Navigator.of(context).push(MaterialPageRoute(builder: (context) => BondCareReceiver()));
       },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {

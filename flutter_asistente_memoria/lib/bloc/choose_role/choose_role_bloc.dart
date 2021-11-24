@@ -26,7 +26,7 @@ class ChooseRoleBloc extends Bloc<ChooseRoleEvent, ChooseRoleState> {
   Stream<ChooseRoleState> _mapChooseRoleCaregiverToState() async* {
     yield state.caregiverSelectionProgress();
     try {
-      Authentication.setUserRole(UserRole.caregiver);
+      await Authentication.setUserRole(UserRole.caregiver);
       yield state.selectionSuccess();
     } on Exception {
       yield state.error();
@@ -36,7 +36,7 @@ class ChooseRoleBloc extends Bloc<ChooseRoleEvent, ChooseRoleState> {
   Stream<ChooseRoleState> _mapChooseRoleCareReceiverToState() async* {
     yield state.careReceiverSelectionProgress();
     try {
-      Authentication.setUserRole(UserRole.careReceiver);
+      await Authentication.setUserRole(UserRole.careReceiver);
       yield state.selectionSuccess();
     } on Exception {
       yield state.error();
